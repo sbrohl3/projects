@@ -1,4 +1,11 @@
 def divideTwoNumbers(passed_list):
+    """Processes a list of numbers, and divides one number by the other
+    Arguments:
+    passed_list [list of dictionaries] -- eaach dictionary has the format of {top_number: int, bottom_number: int}
+    Returns:
+    a list of values obtained when we divide top_number by bottom_number for each dictionary 
+    """
+
     divide_results = []
     numbers_ok = True
     passed_number1 = 1
@@ -24,6 +31,13 @@ def divideTwoNumbers(passed_list):
     return divide_results
 
 def multiplyTwoNumbers(passed_list):
+    """Processes a list of numbers, and multiplies one number by the other
+    Arguments:
+    passed_list [list of dictionaries] -- eaach dictionary has the format of {top_number: int, bottom_number: int}
+    Returns:
+    a list of values obtained when we multiply top_number by bottom_number for each dictionary 
+    """
+
     multiply_results = []
     numbers_ok = True
     passed_number1 = 1
