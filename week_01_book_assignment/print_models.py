@@ -2,7 +2,7 @@
 ## 06/30/2019
 ## Brohl, Steven
 
-import functions.print_functions as print_functions
+import functions.printing_functions as print_functions
 
 unprinted_designs = ['iphone case', 'robot pendant', 'dodecahedron']
 completed_models = []
