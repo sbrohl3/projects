@@ -27,32 +27,28 @@ while program:
         while id_check == False: 
             student.IDnum = input("What is your Student ID: ")
             id_check = student.validateStudentID()
-        college_records.append(student.IDnum)
         
         ## A loop that takes only valid user input for the Student's name and then appends it to a list
         name_check = False
         while name_check == False: 
             student.name = input("What is your name: ")
             name_check = student.validateName()
-        college_records.append(student.name)
 
         ## A loop that takes only valid user input for the Student's email and then appends it to a list
         email_check = False
         while email_check == False: 
             student.email = input("What is your email: ")
             email_check = student.validateEmail()
-        college_records.append(student.email)
         
         ## A loop that takes only valid user input for the Student's program of study and then appends it to a list
         program_check = False
         while program_check == False: 
             student.program_of_study = input("What is your program of study: ")
             program_check = student.validateProgram()
-        college_records.append(student.program_of_study)
         
         ## Display Student Information
         student.displayInformation()
-
+        college_records.append(student)
    
           
 
@@ -67,38 +63,34 @@ while program:
         while id_check == False: 
             instructor.IDnum = input("What is your Instructor ID: ")
             id_check = instructor.validateInstructorID()
-        college_records.append(instructor.IDnum)
         
         ## A loop that takes only valid user input for the Instructor's name and then appends it to a list
         name_check = False
         while name_check == False: 
             instructor.name = input("What is your name: ")
             name_check = instructor.validateName()
-        college_records.append(instructor.name)
 
         ## A loop that takes only valid user input for the Instructor's email and then appends it to a list
         email_check = False
         while email_check == False: 
             instructor.email = input("What is your email: ")
             email_check = instructor.validateEmail()
-        college_records.append(instructor.email)
 
         ## A loop that takes only valid user input for the Instructor's last institution graduated and then appends it to a list
         institution_check = False
         while institution_check == False: 
             instructor.last_institution = input("What is the last institution you graduated from: ")
             institution_check = instructor.validateInstitution()
-        college_records.append(instructor.last_institution)
         
         ## A loop that takes only valid user input for the Instructor's highest degree earned and then appends it to a list
         degree_check = False
         while degree_check == False: 
             instructor.highest_degree = input("What is the highest degree you earned: ")
             degree_check = instructor.validateHighestDegree()
-        college_records.append(instructor.highest_degree)
         
         ## Display Instructor Information
         instructor.displayInformation()
+        college_records.append(instructor)
 
     ## If the user enters Q, then the program will exit   
     elif person_type.upper() == "Q":
