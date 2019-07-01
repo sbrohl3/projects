@@ -131,7 +131,6 @@ class Person(Validator):
   """A simple person class"""
 
   def __init__(self, name, email):
-      super().__init__(IDnum, name, email)
       self.name = name
       self.email = email
 
@@ -139,8 +138,7 @@ class Person(Validator):
 class Student(Person):
     """A simple Student class"""
 
-    def __init__(self, IDnum=0, name='', email='', program_of_study='', college_records=[]):
-        self.college_records = college_records
+    def __init__(self, IDnum=0, name='', email='', program_of_study=''):
         self.IDnum = IDnum
         self.name = name
         self.email = email
@@ -152,14 +150,13 @@ class Student(Person):
         print("Name: " + self.name)
         print("Email: " + self.email)
         print("Program of Study: " + self.program_of_study)
-        self.college_records.append([self.IDnum, self.name, self.email, self.program_of_study])
+        
 
 
 class Instructor(Person):
     """A simple Instructor class"""
 
-    def __init__(self, IDnum=0, name='', email='', last_institution='', highest_degree='', college_records=[]):
-        self.college_records = college_records
+    def __init__(self, IDnum=0, name='', email='', last_institution='', highest_degree=''):
         self.IDnum = IDnum
         self.name = name
         self.email = email
@@ -173,7 +170,7 @@ class Instructor(Person):
         print("Email: " + self.email)
         print("Last Institution Attended: " + self.last_institution)
         print("Highest degree obtained: " + self.highest_degree)
-        self.college_records.append([self.IDnum, self.name, self.email, self.last_institution, self.highest_degree])
+        
         
 
 
@@ -201,6 +198,7 @@ while program:
         student.program_of_study = input("What is your program of study: ")
         student.validateProgram()
         student.displayInformation()
+        college_records.append([student.IDnum, student.name, student.email, student.program_of_study])
    
           
 
@@ -216,7 +214,7 @@ while program:
         instructor.highest_degree = input("What is the highest degree you earned: ")
         instructor.validateHighestDegree()
         instructor.displayInformation()
-       
+        college_records.append([instructor.IDnum, instructor.name, instructor.email, instructor.last_institution, instructor.highest_degree])
 
     ## If the user enters Q, then the program will exit   
     elif person_type.upper() == "Q":
@@ -228,5 +226,4 @@ while program:
             program = False
 
 print("COLLEGE RECORDS: ")
-print(student.college_records)
-print(instructor.college_records)
+print(college_records)

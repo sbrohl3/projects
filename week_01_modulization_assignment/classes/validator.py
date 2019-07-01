@@ -1,15 +1,16 @@
 class Validator():
     """A class for input validation"""
-
-    def __init__(self, IDnum, name, email, highest_degree, last_institution, program_of_study):
+        
+    def __init__(self, IDnum=0, name='', email='', program_of_study='', last_institution='', highest_degree=''):
         self.IDnum = IDnum
         self.name = name
         self.email = email
-        self.highest_degree = highest_degree
-        self.last_institution = last_institution
         self.program_of_study = program_of_study
+        self.last_institution = last_institution
+        self.highest_degree = highest_degree
 
-    def validateEmail():
+
+    def validateEmail(self):
         ## Declaring a Flag to control a while loop
         email_addresses_ok = False
         ## While loop to have user retry their input if they enter incorrectly
@@ -21,14 +22,16 @@ class Validator():
                 for char in self.email:
                     ## If bad characters are found, exit the program
                     if char in bad_chars or char.isspace():
-                        self.email = input("What is your email: ") 
                         email_addresses_ok = False
+                        return False
+                         
+                        
                     else:
                         email_addresses_ok = True
             ## if no input is provided re-prompt
             else:
-                self.email = input("What is your email: ")
-                email_addresses_ok = False
+                return False
+                
 
     def validateHighestDegree(self):
         ## Declaring a Flag to control a while loop
@@ -40,8 +43,9 @@ class Validator():
                 degree_check_ok = True
 
             else:
-                self.highest_degree = input("What is the highest degree you earned:  ")
-                degree_check_ok = False
+                return False
+            
+                
 
     def validateInstructorID(self):
         ## Declaring a Flag to control a while loop
@@ -53,11 +57,11 @@ class Validator():
                 if len(self.IDnum) <= 5:
                     instructor_id_ok = True
                 else:
-                    self.IDnum = input("What is your Instructor ID: ")
-                    instructor_id_ok = False
+                    return False
+                    
             else:
-                self.IDnum = input("What is your Instructor ID: ")
-                instructor_id_ok = False
+                return False
+                
 
     def validateInstitution(self):
         ## Declaring a Flag to control a while loop
@@ -69,8 +73,8 @@ class Validator():
                 institution_check_ok = True
     
             else:
-                self.last_institution = input("What is the last institution you graduated from: ")
-                institution_check_ok = False
+                return False
+                
    
     def validateName(self):
         ## Declaring a Flag to control a while loop
@@ -85,14 +89,17 @@ class Validator():
                 for char in self.name:
                     ## If bad characters are found, exit the program
                     if char in bad_chars or char.isdigit() or self.name.isspace():
-                        self.name = input("What is your name: ")
                         name_ok = False
+                        return False
+                        
+                        
                     else:
                         name_ok = True
             ## if no input is provided re-prompt
             else:
-                self.name = input("What is your name: ")
-                name_ok = False
+                return False
+                
+                
 
     def validateProgram(self):
         ## Declaring a Flag to control a while loop
@@ -104,8 +111,8 @@ class Validator():
                 program_check_ok = True
     
             else:
-                self.program_of_study = input("What is your program of study: ")
-                program_check_ok = False
+                return False
+                
 
     def validateStudentID(self):
         ## Declaring a Flag to control a while loop
@@ -116,9 +123,10 @@ class Validator():
             if self.IDnum.isdigit():
                 if len(self.IDnum) <= 7:
                     student_id_ok = True
+                    return True
                 else:
-                    self.IDnum = input("What is your Student ID: ")
                     student_id_ok = False
+                    return False
+                    
             else:
-                self.IDnum = input("What is your Student ID: ")
-                student_id_ok = False
+                return False
