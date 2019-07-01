@@ -1,7 +1,7 @@
 class Validator():
     """A class for input validation"""
 
-    def __init__(self):
+    def __init__(self, IDnum, name, email, highest_degree, last_institution, program_of_study):
         self.IDnum = IDnum
         self.name = name
         self.email = email
