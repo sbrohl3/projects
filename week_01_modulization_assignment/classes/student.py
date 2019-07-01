@@ -4,7 +4,6 @@ class Student(Person):
     """A simple Student class"""
 
     def __init__(self, IDnum=0, name='', email='', program_of_study=''):
-        self.college_list = college_list
         self.IDnum = IDnum
         self.name = name
         self.email = email

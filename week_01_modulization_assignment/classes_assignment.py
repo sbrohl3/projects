@@ -105,6 +105,3 @@ while program:
         exit_program = input("Incorrect Input provided! Do you want to quit? Y/N: ")
         if exit_program.upper() == "Y":
             program = False
-
-## At the end of the program all college records will be printed
-print("COLLEGE RECORDS: ")
