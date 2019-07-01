@@ -48,6 +48,7 @@ restaurant.customers_served()
 ## 9-11 Imported Admin
 ## 06/30/2019
 ## Brohl, Steven
+
 from classes.usertype import Admin
 
 admin = Admin("Steven", "Brohl", "1234 Some Street", "sbrohl2@mail.walshcollege.edu", "586-123-4567")
