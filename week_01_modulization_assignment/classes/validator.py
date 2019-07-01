@@ -2,6 +2,7 @@ class Validator():
     """A class for input validation"""
         
     def __init__(self, IDnum=0, name='', email='', program_of_study='', last_institution='', highest_degree=''):
+        ## A constructor for instantiating variables to be used in the validator class
         self.IDnum = IDnum
         self.name = name
         self.email = email
