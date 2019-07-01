@@ -48,6 +48,8 @@ while program:
         
         ## Display Student Information
         student.displayInformation()
+
+        ## Append all student input to a list
         college_records.append(student)
    
           
@@ -90,6 +92,8 @@ while program:
         
         ## Display Instructor Information
         instructor.displayInformation()
+
+        ## Append all instructor input to a list
         college_records.append(instructor)
 
     ## If the user enters Q, then the program will exit   
@@ -104,4 +108,3 @@ while program:
 
 ## At the end of the program all college records will be printed
 print("COLLEGE RECORDS: ")
-print(college_records)
