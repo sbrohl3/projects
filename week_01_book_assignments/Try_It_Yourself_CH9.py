@@ -50,15 +50,23 @@ admin.privileges.show_privileges()
 ## Brohl, Steven
 
 from collections import OrderedDict
-## After many hours on this problem I cannot find a way to use duplicate key names. 
-## I had to remove the key names "term" and "definition",
-## then I had to place all of my values in a list of tuples in order to get a dictionary I could loop through,
-## How can I complete this problem using unique key values?
+## FIXED IT!
 
-glossary = OrderedDict([("tuple", "A datatype that holds an ordered collection of values that can be of any type."), ("print", "A function used to display the output of a program."),("while loop", "Permits code to execute repeadetly until a certain condition is met."), ("list", "A datatype that holds an ordered collection of values."), ("integer", "Is positive or negative whole number."), ("function", "A block of code that only runs when it is called."), ("classes", "Represent real-world things and situations."), ("object", "An instance of a class."), ("for loops", "Used for iteracting over a squence."), ("argument", "A value passed to a function or method when calling a function.")])
+glossary = OrderedDict()
+
+glossary["tuple"] = "A datatype that holds an ordered collection of values that can be of any type."
+glossary["print"] = "A function used to display the output of a program."
+glossary["while loop"] = "Permits code to execute repeadetly until a certain condition is met."
+glossary["list"] = "A datatype that holds an ordered collection of values."
+glossary["integer"] = "Is positive or negative whole number."
+glossary["function"] = "A block of code that only runs when it is called."
+glossary["classes"] = "Represent real-world things and situations."
+glossary["object"] = "An instance of a class."
+glossary["for loops"] = "Used for iteracting over a squence."
+glossary["argument"] = "A value passed to a function or method when calling a function."
 
 for key, value in glossary.items():
-    print("\n" + key.title() + "- " + value)
+    print("\n" + key.title() + " - " + value)
 
 
 

@@ -17,12 +17,18 @@ print_functions.show_completed_models(completed_models)
 ## 06/30/2019
 ## Brohl Steven
 
-import functions.show_magicians as show_magicians
+## FINISHED IT!
+
+import functions.magicians as show_magicians
+from functions.magicians import show_magicians
+from functions.magicians import show_magicians as s_m
+import functions.magicians as sm
+from functions.magicians import *
 
 ## List of Magicians
 magicians = ["Merlin", "Houdini", "Blaine", "Angel"]
 
-show_magicians.show_magicians(magicians)
+sm.show_magicians(magicians)
 
 
 
