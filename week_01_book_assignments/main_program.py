@@ -73,20 +73,20 @@ admin.privileges.show_privileges()
 
 
 
-
 ## 9-13 OrderedDict Rewrite
-## 06/30/2019
+## 07/01/2019
 ## Brohl, Steven
 
 from collections import OrderedDict
+## After many hours on this problem I cannot find a way to use duplicate key names. 
+## I had to remove the key names "term" and "definition",
+## then I had to place all of my values in a list of tuples in order to get a dictionary I could loop through,
+## How can I complete this problem using unique key values?
 
+glossary = OrderedDict([("tuple", "A datatype that holds an ordered collection of values that can be of any type."), ("print", "A function used to display the output of a program."),("while loop", "Permits code to execute repeadetly until a certain condition is met."), ("list", "A datatype that holds an ordered collection of values."), ("integer", "Is positive or negative whole number."), ("function", "A block of code that only runs when it is called."), ("classes", "Represent real-world things and situations."), ("object", "An instance of a class."), ("for loops", "Used for iteracting over a squence."), ("argument", "A value passed to a function or method when calling a function.")])
 
-
-glossary_list = ("term": "tuple", "definition": "A datatype that holds an ordered collection of values that can be of any type."),("term": "print", "definition": "A function used to display the output of a program."),("term": "while loop", "definition": "Permits code to execute repeadetly until a certain condition is met."),("term": "list", "definition": "A datatype that holds an ordered collection of values."),("term": "integer", "definition": "Is positive or negative whole number."),("term": "function", "definition": "A block of code that only runs when it is called."),("term": "classes", "definition": "Represent real-world things and situations."),("term": "object", "definition": "An instance of a class."),("term": "for loops","definition": "Used for iteracting over a squence."),("term": "argument", "definition": "A value passed to a function or method when calling a function.")
-
-glossary = OrderedDict(glossary_list)
-print(glossary)
-
+for key, value in glossary.items():
+    print("\n" + key.title() + "- " + value)
 
 
 
