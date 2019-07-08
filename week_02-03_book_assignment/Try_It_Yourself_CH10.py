@@ -94,7 +94,7 @@ except ValueError:
     print("One of your numbers is not an integer.")
 
 else:
-    print(first_number," + ",second_number," = ",answer)
+    print(str(first_number) + " + " + str(second_number) + " = " + answer)
 
 
 ## 10-7: Addition Calculator
@@ -114,7 +114,7 @@ while program_run == True:
         print("One of your numbers is not an integer.")
 
     else:
-        print(first_number," + ",second_number," = ",answer)
+        print(str(first_number) + " + " + str(second_number) + " = " + answer)
 
     exit_response = False
     while exit_response == False: 
