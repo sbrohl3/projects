@@ -1,0 +1,7 @@
+In Python you can create variables.
+In Python you can create strings.
+In Python you can create programs.
+In Python you can create for loops.
+In Python you can create while loops.
+In Python you can create functions.
+In Python you can create classes.
