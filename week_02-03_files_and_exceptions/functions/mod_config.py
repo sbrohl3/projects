@@ -37,12 +37,14 @@ def mod_config():
                                 save_config(config_data)
 
                         elif confirm.upper() == "N":
-                            confirm_del = True
                             save_check = False
                             input_check = True
-
+                            confirm_del = True
+                            
                     else:
                         confirm_del = False
+                else:
+                    save_check = False
 
                 while save_check == False:
                     print("\nThe new value is: " + key + " - " + str("\"" + value_modify + "\""))
@@ -61,31 +63,29 @@ def mod_config():
                 
 
                     elif save_input.upper() == "X":
-                        confirm = input("Are you sure you want to delete " + str(key) + ": Y/N ")
-                        if confirm.upper() == "Y":
-                            confirm_del = False
-                    while confirm_del == False:
-                        confirm = input("Are you sure you want to delete " + str(key) + ": Y/N ")
-                        if confirm.upper() == "Y":
-                            original_config = load_original_config()
+                        confirm_del = False
+                        while confirm_del == False:
+                            confirm = input("Are you sure you want to delete " + str(key) + ": Y/N ")
+                            if confirm.upper() == "Y":
+                                original_config = load_original_config()
 
-                            if key in original_config.keys():
-                                print("You cannot delete original configuration entries!")
-                            
-                            elif key not in original_config.keys():
-                                del config_data[key]
+                                if key in original_config.keys():
+                                    print("You cannot delete original configuration entries!")
+                                
+                                elif key not in original_config.keys():
+                                    del config_data[key]
+                                    confirm_del = True
+                                    save_check = True
+                                    input_check = True
+                                    save_config(config_data)
+
+                            elif confirm.upper() == "N":
                                 confirm_del = True
-                                save_check = True
+                                save_check = False
                                 input_check = True
-                                save_config(config_data)
 
-                        elif confirm.upper() == "N":
-                            confirm_del = True
-                            save_check = False
-                            input_check = True
-
-                        else:
-                            confirm_del = False
+                            else:
+                                confirm_del = False
 
 
                     else:
