@@ -26,4 +26,4 @@ while program_run == True:
         program_run = False
     
     else:
-        print("Incorrect input. Try Again!")
+        print("\n Incorrect input. Try Again!")
