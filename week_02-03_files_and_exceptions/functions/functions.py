@@ -38,10 +38,12 @@ def add_config():
             save_config(config_data)
             input_check = True
             save_check = True
+
         elif save_input.upper() == "D":
             print("Discarding changes...")
             input_check = True
             save_check = True
+            
         else:
             print("Incorrect Input. Try again.")
             save_check = False
@@ -64,14 +66,17 @@ def add_config_alternative():
     ## Loop to save changes to config file or discard them
     save_check = False
     while save_check == False:
+        
         ## Displaying Temporary config before saving
         print("\nTemporary Configuration: ")      
+        
         count = 1
         print("===========================================================")
         for key, value in config_data.items():
             print(str(count) + ". " + str(key) + " - " + str("\"" + value + "\""))
             count += 1
         print("=========================================================== \n")
+        
         ## Prompting the user with an option save additions to the config or discard them
         save_input = input("Do you want to (s)ave or (d)iscard these changes: ")
         if save_input.upper() == "S":
@@ -79,11 +84,13 @@ def add_config_alternative():
             save_config(config_data)
             input_check = True
             save_check = True
+
         elif save_input.upper() == "D":
             ## Discarding changes returns a user to the main menu
             print("Discarding changes...")
             input_check = True
             save_check = True
+
         else:
             ## Entering incorrect input re-prompts users to save or discard changes
             print("Incorrect Input. Try again.")
