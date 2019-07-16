@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>functions</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Csteve%5Cdocuments%5Cpythonprograms%5Cit412%5Cit412_sbrohl2%5Cweek_02-03_files_and_exceptions%5Cfunctions%5Cfunctions.py">c:\users\steve\documents\pythonprograms\it412\it412_sbrohl2\week_02-03_files_and_exceptions\functions\functions.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_config"><strong>add_config</strong></a>()</dt><dd><tt>Allows&nbsp;the&nbsp;user&nbsp;to&nbsp;add&nbsp;in&nbsp;additional&nbsp;config&nbsp;options&nbsp;overriding&nbsp;the&nbsp;basic&nbsp;config<br>
+Arguments:<br>
+save_input&nbsp;[user&nbsp;input]&nbsp;--&nbsp;Save,&nbsp;or&nbsp;discard&nbsp;additions&nbsp;to&nbsp;the&nbsp;current&nbsp;configuration<br>
+Returns:<br>
+New&nbsp;configuration&nbsp;output&nbsp;to&nbsp;main&nbsp;program</tt></dd></dl>
+ <dl><dt><a name="-add_config_alternative"><strong>add_config_alternative</strong></a>()</dt><dd><tt>Adds&nbsp;in&nbsp;additional&nbsp;configuration&nbsp;options&nbsp;overriding&nbsp;the&nbsp;basic&nbsp;config<br>
+Arguments:<br>
+save_input&nbsp;[user&nbsp;input]&nbsp;--&nbsp;Save,&nbsp;or&nbsp;discard&nbsp;additions&nbsp;to&nbsp;the&nbsp;current&nbsp;configuration<br>
+Returns:<br>
+New&nbsp;configuration&nbsp;output&nbsp;to&nbsp;main&nbsp;program</tt></dd></dl>
+ <dl><dt><a name="-load_config"><strong>load_config</strong></a>()</dt><dd><tt>Loads&nbsp;in&nbsp;either&nbsp;the&nbsp;basic&nbsp;or&nbsp;override&nbsp;configuration&nbsp;file<br>
+Arguments:<br>
+If&nbsp;override&nbsp;config&nbsp;exists&nbsp;use&nbsp;it,&nbsp;else&nbsp;use&nbsp;basic_config<br>
+Returns:<br>
+config_data&nbsp;to&nbsp;the&nbsp;main&nbsp;program</tt></dd></dl>
+ <dl><dt><a name="-load_original_config"><strong>load_original_config</strong></a>()</dt><dd><tt>Loads&nbsp;in&nbsp;the&nbsp;basic&nbsp;config&nbsp;file&nbsp;for&nbsp;comparison&nbsp;purposes<br>
+Arguments:<br>
+If&nbsp;key&nbsp;in&nbsp;override&nbsp;config&nbsp;matches&nbsp;a&nbsp;key&nbsp;in&nbsp;basic&nbsp;config&nbsp;it&nbsp;cannot&nbsp;be&nbsp;deleted<br>
+Returns:<br>
+original_config&nbsp;to&nbsp;mod_config</tt></dd></dl>
+ <dl><dt><a name="-mod_config"><strong>mod_config</strong></a>()</dt><dd><tt>Allows&nbsp;the&nbsp;use&nbsp;to&nbsp;modify&nbsp;config&nbsp;values<br>
+Arguments:<br>
+value_input&nbsp;[user&nbsp;input]&nbsp;-&nbsp;User&nbsp;enters&nbsp;a&nbsp;key&nbsp;to&nbsp;modify<br>
+value_modify&nbsp;[user&nbsp;input]&nbsp;-&nbsp;User&nbsp;enters&nbsp;a&nbsp;value&nbsp;to&nbsp;modiy<br>
+save_input&nbsp;[user&nbsp;input]&nbsp;-&nbsp;User&nbsp;can&nbsp;save,&nbsp;discard,&nbsp;or&nbsp;delete&nbsp;selected&nbsp;entries<br>
+Returns:<br>
+config_data&nbsp;to&nbsp;the&nbsp;main&nbsp;program</tt></dd></dl>
+ <dl><dt><a name="-save_config"><strong>save_config</strong></a>(config_data)</dt><dd><tt>Allows&nbsp;the&nbsp;user&nbsp;to&nbsp;save&nbsp;configuration&nbsp;data<br>
+Arguments:<br>
+If&nbsp;config_override&nbsp;already&nbsp;exists&nbsp;a&nbsp;backup&nbsp;is&nbsp;created<br>
+Returns:<br>
+nothing</tt></dd></dl>
+</td></tr></table>
+</body></html>
