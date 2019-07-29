@@ -1,5 +1,5 @@
 class Phonebook():
-    """"A class representing a phonebook"""
+    """A class representing a phonebook"""
 
     def __init__(self, first_name=" ", last_name=" ", phone_number=0, phone_number_type=" "):
         """A constructor for the Phonebook Class"""
@@ -8,7 +8,7 @@ class Phonebook():
         self.phone_number = phone_number
         self.phone_number_type = phone_number_type
         self.valid_phone_number_types = ["home", "office", "cell"]
-        self.contact_list = []
+
 
     def validateNamePart(self, passed_name):
         """Validates the first and last name"""
@@ -18,6 +18,7 @@ class Phonebook():
         while not name_ok:
             if passed_name.isalpha():
                 name_ok = True
+                return True
 
             else:
                 print("You have entered an invalid character. Please try again.")
@@ -54,8 +55,3 @@ class Phonebook():
 
             else:
                 return False
-
-    def format_data(self):
-        """Appends all of the values after they have been validated"""
-        self.contact_list.append({"Name": self.first_name + " " + self.last_name, "Phone Number": self.phone_number, "Phone Number Type": self.phone_number_type})
-
