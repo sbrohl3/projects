@@ -7,11 +7,11 @@
 from classes.phonebook import Phonebook
 
 program_run = True
-contact_list = []
 
 while program_run == True:
     ## A variable to call the Phonebook class
     phone_book = Phonebook()
+    
     ## This loop only allows for a valid first name (only letters) to be input by a user
     first_name_check = False
     while first_name_check == False: 
@@ -36,7 +36,7 @@ while program_run == True:
         phone_book.phone_number_type = input("What is your Phone Number Type: \"home\", \"office\", \"cell\": ")
         phone_number_type_check = phone_book.validatePhoneNumberType()
 
-    contact_list.append({"name": phone_book.first_name.title() + " " + phone_book.last_name.title(), "phone number": phone_book.phone_number, "phone number type": phone_book.phone_number_type})
+    phone_book.appendedEntries()
 
     exit_program_check = False
     while exit_program_check == False:
@@ -54,4 +54,4 @@ while program_run == True:
             exit_program_check = False
 
 ## Prints contact info appended to the list
-print(contact_list)
+print(phone_book.contact_list)

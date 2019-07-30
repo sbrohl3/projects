@@ -1,14 +1,14 @@
 class Phonebook():
     """A class representing a phonebook"""
 
-    def __init__(self, first_name=" ", last_name=" ", phone_number=0, phone_number_type=" "):
+    def __init__(self, first_name=" ", last_name=" ", phone_number=0, phone_number_type=" ", contact_list=[]):
         """A constructor for the Phonebook Class"""
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
         self.phone_number_type = phone_number_type
         self.valid_phone_number_types = ["home", "office", "cell"]
-
+        self.contact_list = contact_list
 
     def validateNamePart(self, passed_name):
         """Validates the first and last name"""
@@ -55,3 +55,7 @@ class Phonebook():
 
             else:
                 return False
+
+    def appendedEntries(self):
+        """Appends all appended entries as a dictionary to a list"""
+        self.contact_list.append({"name": self.first_name.title() + " " + self.last_name.title(), "phone number": self.phone_number, "phone number type": self.phone_number_type})
