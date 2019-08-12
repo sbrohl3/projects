@@ -5,7 +5,7 @@ conn = pyodbc.connect(
     'SERVER=sqllab.academic.walshcollege.edu;'
     'DATABASE=it412_class;'
     'UID=it412_sbrohl2;'
-    'PWD=Mr.P!nK9410!'
+    'PWD=********'
     )
 
 cursor = conn.cursor()
