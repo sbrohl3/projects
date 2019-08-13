@@ -2,7 +2,6 @@
 ## IT412
 ## 08/10/2019
 ## BROHL, STEVEN
-
 from classes.library import library
 
 library = library()
@@ -102,7 +101,7 @@ while program_run == True:
                 copies_checked_check = False
                 while copies_checked_check == False: 
                     library.num_copies_checked = input("What would you like to change the number of checked out copies to?: ")
-                    copies_checked_check = library.validateNumCopiesChecked()
+                    copies_checked_check = library.validateNumCopiesChecked2()
                     option = "num_copies_checked"
                     library.updateContents(option, library.num_copies_checked)
 
