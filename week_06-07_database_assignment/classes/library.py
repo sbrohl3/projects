@@ -335,11 +335,11 @@ class library():
         while not retail_price_check_ok:
             if self.retail_price:
                 try:
-                    ## Attempting to cast the number of books checked out as an int
+                    ## Attempting to cast the number of books checked out as an float
                     self.retail_price = float(self.retail_price)
                 
                 except ValueError:
-                    ## If a user inputs a value that is not an int an exception is thrown
+                    ## If a user inputs a value that is not an float an exception is thrown
                     print("\nYou have entered an invalid value. Please try again.")
                     return False
 
