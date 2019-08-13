@@ -149,21 +149,25 @@ while program_run == True:
             elif continue_prompt.lower() == "n":
                 editing = False
                 ## A prompt asking the user if they wish to save their updated edits to the database
-                save_add = input("Do you wish to save your updates to the database? Y/N: ")
-                if save_add.lower() == "y":
-                    editing = False
-                    library.commitChanges()
+                save_add = False
+                while save_add == False:
+                    save_add = input("Do you wish to save your updates to the database? Y/N: ")
+                    if save_add.lower() == "y":
+                        editing = False
+                        save_add = True
+                        library.commitChanges()
+                        
+                    ## A prompt to discard changes if a user chooses not to save their updates
+                    elif save_add.lower() == "n":
+                        print("Discarding changes and returning to main menu...")
+                        editing = False
+                        save_add = True
+                        program_run = True
                     
-                ## A prompt to discard changes if a user chooses not to save their updates
-                elif save_add.lower() == "n":
-                    print("Discarding changes and returning to main menu...")
-                    editing = False
-                    program_run = True
-                
-                else:
-                    ## An error message if a user enters an invalid response
-                    print("You have entered an invalid response. Please answer (Y)es or (N)o.")
-                
+                    else:
+                        ## An error message if a user enters an invalid response
+                        print("You have entered an invalid response. Please answer (Y)es or (N)o.")
+                        
             else:
                 ## An error message if a user enters an invalid response
                 print("You have entered an invalid response. Please answer (Y)es or (N)o.")

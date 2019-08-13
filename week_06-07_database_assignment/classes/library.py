@@ -19,9 +19,10 @@ class library():
         ## A query that selects all records in the library table
         my_query_result = db_connection.executeSelectQuery("SELECT isbn FROM dbo.library_catalogue")
         ## Looping through all of the records in the library table
-        temp_isbn_list = []
-        temp_isbn_list.append(my_query_result)
-        print(temp_isbn_list)
+        for row in my_query_result:
+            temp_isbn_list = []
+            temp_isbn_list.append(row.isbn)
+            print(temp_isbn_list)
         ## Checking to ensure a duplicate book is not added based on ISBN
         if self.isbn in temp_isbn_list:
             print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
