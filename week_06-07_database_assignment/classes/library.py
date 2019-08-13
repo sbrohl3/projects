@@ -246,6 +246,7 @@ class library():
                 except ValueError:
                     ## If a user inputs a value that is not an int an exception is thrown
                     print("\nYou have entered an invalid number. Please try again.")
+                    num_copies_ok = False
                     return False
 
                 else:
@@ -257,6 +258,7 @@ class library():
             ## if no input is provided re-prompt
             else:
                 print("\nYou have not provided a number of copies purchased. Please try again.")
+                num_copies_ok = False
                 return False
 
     def validateNumCopiesChecked(self):

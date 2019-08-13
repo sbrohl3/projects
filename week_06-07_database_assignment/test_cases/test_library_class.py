@@ -5,270 +5,120 @@ class TestLibraryClass(unittest.TestCase):
     """Test the library Class"""
 
     def setUp(self):
-        """An instance of the Phonebook class for testing all the other class functions"""
+        """An instance of the Library class for testing all the other class functions"""
         self.library = library()
 
     def test_valid_book_title(self):
         """Here are some book_title checks I know will validate to True"""
-        valid_names_to_test = ["Steven", "steven", "STEVEN", "StEvEn", "sTeVeN", "STEven"]
+        valid_title_to_test = ["\"Time Out Of Joint\"", "\'Neuromancer\'", "The Man in the High Castle ", "Martian Time Slip", "A scanner DaRkLy", " Clans of Alphane Moon\'"]
         
-        for name in valid_names_to_test:
-            self.assertTrue(self.phone_book.validateNamePart(name))
+        for title in valid_title_to_test:
+            self.library.book_title = title
+            self.assertTrue(self.library.validateBookTitle())
 
-    def test_invalid_book_title(self):
-        """Here are some book_title checks I know will not validate to True"""
-        invalid_names_to_test = ["123Steven", " steven", "!@11STEVEN", " StEvEn123", "sTeVeN 123", "STEven!234"]
-        
-        for name in invalid_names_to_test:
-            self.assertFalse(self.phone_book.validateNamePart(name))
 
     def test_valid_Author(self):
-        """Here are some last name checks I know will validate to True"""
-        valid_names_to_test = ["Brohl", "brohl", "BROHL", "BrOhL", "bROhL", "BROhl"]
+        """Here are some author name checks I know will validate to True"""
+        valid_names_to_test = ["PKD", "Philip K. Dick", "WillIam Gibson", "H.G. Wells", "George OrWell ", "AlDoUs HUxLey"]
         
         for name in valid_names_to_test:
-            self.assertTrue(self.phone_book.validateNamePart(name))
+            self.library.book_author = name
+            self.assertTrue(self.library.validateAuthorName())
 
     def test_invalid_Author(self):
-        """Here are some last name checks I know will not validate to True"""
-        invalid_names_to_test = ["Brohl ", " brohl", " BROHL ", "123BrOhL", "12!bROhL", "#!@123BROhl"]
+        """Here are some author name checks I know will not validate to True"""
+        invalid_names_to_test = ["!PKD@ ", " ##Philip K. Dick", " ^&William Gibson ", "!!!George Orwell", "@ld0u$ Huxley!"]
         
         for name in invalid_names_to_test:
-            self.assertFalse(self.phone_book.validateNamePart(name))
+            self.library.book_author = name
+            self.assertFalse(self.library.validateAuthorName())
 
     def test_valid_ISBN(self):
-        """Here are some phone number checks I know will validate to True"""
-        valid_numbers_to_test = ["5864431259", "5867712848", "5861234567", "8007511563", "5551432565", "3135256525"]
+        """Here are some ISBN number checks I know will validate to True"""
+        valid_numbers_to_test = ["978-120312", "781-123421", "999654-2111242", "978-1246473", "525-12-125", "425-3113-1212"]
         
         for number in valid_numbers_to_test:
-            self.phone_book.phone_number = number
-            self.assertTrue(self.phone_book.validatePhoneNumber())
+            self.library.isbn = number
+            self.assertTrue(self.library.validateISBN())
 
     def test_invalid_ISBN(self):
-        """Here are some phone number checks I know will not validate to True"""
-        invalid_numbers_to_test = ["586", "586771", "586abcde", "abcde123456", "5551432565856", "@31352565251aa!"]
+        """Here are some ISBN number checks I know will not validate to True"""
+        invalid_numbers_to_test = ["124246468412451", "978-124512125413", "952-852-15561-!2312", "!123@2554221412", "!@#125441252221", "@31352565251aa!"]
         
         for number in invalid_numbers_to_test:
-            self.phone_book.phone_number = number
-            self.assertFalse(self.phone_book.validatePhoneNumber())
+            self.library.isbn = number
+            self.assertFalse(self.library.validateISBN())
 
     def test_valid_copies_purchased(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
+        """Here are some int checks I know will validate to True"""
+        valid_number_types_to_test = [13, 10, 20]
         
         for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_copies_purchased_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
+            self.library.num_copies_purchased = number_type
+            self.assertTrue(self.library.validateNumCopies())
+                 
     def test_invalid_copies_purchased_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
+        """Here are some int checks I know will validate to False"""
+        valid_number_types_to_test = ["asdad", "123asdad", "122!! ", "!!@@sdad ", " asdada!", " 12223!!$", "123adasd", "12fgg!!", "123fasdas"]
         
         for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
-
-    def test_invalid_copies_purchased_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())
-    
-    def test_valid_copies_checked(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_copies_checked_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
-    def test_invalid_copies_checked_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
-
-    def test_invalid_copies_checked_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())
-            
-    def test_valid_retail_price(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_retail_price_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
-    def test_invalid_retail_price_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
-
-    def test_invalid_retail_price_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())        
-
-
-    def test_valid_add_book(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_add_book_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
-    def test_invalid_add_book_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
-
-    def test_invalid_add_book_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())      
+            self.library.num_copies_purchased = number_type
+            self.assertFalse(self.library.validateNumCopies())
    
-    def test_valid_edit_book(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
+    def test_valid_copies_checked(self):
+        """Here are some int checks I know will validate to True"""
+        valid_number_types_to_test = [5, 3, 2]
         
         for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_edit_book_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
-    def test_invalid_edit_book_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
-
-    def test_invalid_edit_book_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())      
+            self.library.num_copies_checked = number_type
+            self.assertTrue(self.library.validateNumCopiesChecked())
     
-    def test_valid_remove_book(self):
-        """Here are some phone number type checks I know will match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell", "home", "office"]
+    def test_invalid_copies_checked(self):
+        """Here are some int checks I know will not validate to True"""
+        invalid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
         
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type matches one in the valid list
-            self.assertIn(number_type, self.phone_book.valid_phone_number_types)
-            
-    def test_valid_remove_book_type2(self):
-        """Here are some phone number type checks I know will validate to True"""
-        valid_number_types_to_test = ["cell", "home", "office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to True
-            self.assertTrue(self.phone_book.validatePhoneNumberType())
-            
-    def test_invalid_remove_book_type(self):
-        """Here are some phone number type checks I know will not match a value in valid_phone_number_types"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
-        
-        for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type does not match one in the valid list
-            self.assertNotIn(number_type, self.phone_book.valid_phone_number_types)
+        for number_type in invalid_number_types_to_test:
+            self.library.num_copies_checked = number_type
+            self.assertFalse(self.library.validateNumCopiesChecked())
 
-    def test_invalid_remove_book_type2(self):
-        """Here are some phone number type checks I know will not validate to True"""
-        valid_number_types_to_test = ["cell1", "home2", "office ", "cell ", " home", " office", "123cell", "123home", "123office"]
+    def test_valid_copies_checked2(self):
+        """Here are some int checks I know will validate to True"""
+        valid_number_types_to_test = [5, 3, 2]
         
         for number_type in valid_number_types_to_test:
-            self.phone_book.phone_number_type = number_type
-            ## Checks to see if the phone type function evaluates to false
-            self.assertFalse(self.phone_book.validatePhoneNumberType())      
+            self.library.num_copies_checked = number_type
+            self.assertTrue(self.library.validateNumCopiesChecked2(number_type))
 
+    def test_invalid_copies_checked2(self):
+        """Here are some int checks I know will not validate to True"""
+        valid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
+        
+        for number_type in valid_number_types_to_test:
+            self.library.num_copies_checked = number_type
+            self.assertFalse(self.library.validateNumCopiesChecked2(number_type))
+
+    def test_valid_retail_prices(self):
+        """Here are some float checks I know will validate to True"""
+        valid_number_types_to_test = [5.99, 3.99, 25.99]
+        
+        for number_type in valid_number_types_to_test:
+            self.library.retail_price = number_type
+            self.assertTrue(self.library.validateRetailPrice())
+
+    def test_invalid_retail_prices(self):
+        """Here are some float checks I know will not validate to True"""
+        valid_number_types_to_test = ["asda5.99", "8.99adad", "adad5.55"]
+        
+        for number_type in valid_number_types_to_test:
+            self.library.retail_price = number_type
+            self.assertFalse(self.library.validateRetailPrice())
+
+## python -m unittest test_cases.test_library_class
+
+
+    
+    
+    
     
     
             
