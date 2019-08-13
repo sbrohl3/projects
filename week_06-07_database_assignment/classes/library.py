@@ -17,7 +17,7 @@ class library():
     def addContents(self):
         """A class for adding new book content to the database"""
         ## A query that selects all records in the library table
-        my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo.library_catalogue")
+        my_query_result = db_connection.executeSelectQuery("SELECT isbn FROM dbo.library_catalogue")
         ## Looping through all of the records in the library table
         for row in my_query_result:
             ## Checking to ensure a duplicate book is not added based on ISBN
