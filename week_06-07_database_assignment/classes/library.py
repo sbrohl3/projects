@@ -19,16 +19,18 @@ class library():
         ## A query that selects all records in the library table
         my_query_result = db_connection.executeSelectQuery("SELECT isbn FROM dbo.library_catalogue")
         ## Looping through all of the records in the library table
-        for row in my_query_result:
-            ## Checking to ensure a duplicate book is not added based on ISBN
-            if self.isbn == row.isbn:
-                print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
-                break
-            ## If a duplicate is not detected then the book is saved and committed to the database
-            else:    
-                print("Saving book to the database...")
-                db_connection.executeQuery("INSERT INTO dbo.library_catalogue (book_author, book_title, isbn, num_copies_purchased, num_copies_checked, retail_price) VALUES ('" + self.book_author.title() + "', '" + self.book_title.replace("\'", "\'\'").title() + "', '" + self.isbn + "', '" + str(self.num_copies_purchased) + "', '" + str(self.num_copies_checked) + "', '" + str(self.retail_price) + "'); COMMIT")
-                break 
+        temp_isbn_list = []
+        temp_isbn_list.append(my_query_result)
+        print(temp_isbn_list)
+        ## Checking to ensure a duplicate book is not added based on ISBN
+        if self.isbn in temp_isbn_list:
+            print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
+            
+
+        else:
+            print("Saving book to the database...")
+            db_connection.executeQuery("INSERT INTO dbo.library_catalogue (book_author, book_title, isbn, num_copies_purchased, num_copies_checked, retail_price) VALUES ('" + self.book_author.title() + "', '" + self.book_title.replace("\'", "\'\'").title() + "', '" + self.isbn + "', '" + str(self.num_copies_purchased) + "', '" + str(self.num_copies_checked) + "', '" + str(self.retail_price) + "'); COMMIT")
+            
 
     def currentList(self):
         """A class that displays the current list of books in the database"""
@@ -79,10 +81,8 @@ class library():
                             print("\nWhat would you like to edit for " + row.book_title + "?\n\n" + "\t1. Title: " + row.book_title + "\n\t2. Author: " + row.book_author + "\n\t3. ISBN #:" + row.isbn + "\n\t4. # Copies Purchased: " + str(row.num_copies_purchased) + "\n\t5. # Copies Checked Out: " + str(row.num_copies_checked) + "\n\t6. Retail Price: " + str(row.retail_price))
                             ## The number of books purchased is temporarily stored for a later validation check against the number of books checked out 
                             num_copies_purchased_temp = row.num_copies_purchased
-                            ## The temporary value of books purchased is passed through to the validation class exclusively made for editing the number of checked out books
-                            validateNumCopiesChecked(num_copies_purchased_temp)
                             edit_book = True
-                            return False
+                            return (False, num_copies_purchased_temp)
                         
                         elif self.number > len(row) + 1:
                             ## If the user inputs a number that does not correspond with a value that can be changed an error is thrown and they are re-prompted

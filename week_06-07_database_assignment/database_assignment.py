@@ -78,8 +78,9 @@ while program_run == True:
         library.currentList()
         ## Prompting the user to select the book they wish to edit
         library.number = input("Please enter the number next to the book you wish to edit: ")
-        editing = library.editBook()
-        
+        return_values = library.editBook()
+        editing = return_values[0]
+    
         editing = True
         while editing:
             ## Asking the user to select a book value they wish to edit          
@@ -125,7 +126,9 @@ while program_run == True:
                 while copies_checked_check == False:
                     ## A prompt to validate and edit the selected book's # of copies checked out 
                     library.num_copies_checked = input("What would you like to change the number of checked out copies to?: ")
-                    copies_checked_check = library.validateNumCopiesChecked2()
+                    num_copies_purchased_temp = return_values[1]
+                    ## The temporary value of books purchased is passed through to the validation class exclusively made for editing the number of checked out books
+                    copies_checked_check = library.validateNumCopiesChecked2(num_copies_purchased_temp)
                     option = "num_copies_checked"
                     library.updateContents(option, library.num_copies_checked)
 
