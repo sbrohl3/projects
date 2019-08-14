@@ -67,7 +67,7 @@ class TestLibraryClass(unittest.TestCase):
    
     def test_valid_copies_checked(self):
         """Here are some int checks I know will validate to True"""
-        valid_number_types_to_test = [5, 3, 2]
+        valid_number_types_to_test = ["0", "0", "0"]
         
         for number_type in valid_number_types_to_test:
             self.library.num_copies_checked = number_type
@@ -83,19 +83,19 @@ class TestLibraryClass(unittest.TestCase):
 
     def test_valid_copies_checked2(self):
         """Here are some int checks I know will validate to True"""
-        valid_number_types_to_test = [5, 3, 2]
+        valid_number_types_to_test = ["0", "0", "0"]
         
         for number_type in valid_number_types_to_test:
             self.library.num_copies_checked = number_type
-            self.assertTrue(self.library.validateNumCopiesChecked2(number_type))
+            self.assertTrue(self.library.validateNumCopiesChecked2())
 
     def test_invalid_copies_checked2(self):
         """Here are some int checks I know will not validate to True"""
-        valid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
+        invalid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
         
-        for number_type in valid_number_types_to_test:
+        for number_type in invalid_number_types_to_test:
             self.library.num_copies_checked = number_type
-            self.assertFalse(self.library.validateNumCopiesChecked2(number_type))
+            self.assertFalse(self.library.validateNumCopiesChecked2())
 
     def test_valid_retail_prices(self):
         """Here are some float checks I know will validate to True"""

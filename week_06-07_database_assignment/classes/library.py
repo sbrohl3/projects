@@ -12,7 +12,7 @@ class library():
         self.num_copies_purchased = num_copies_purchased 
         self.num_copies_checked = num_copies_checked
         self.retail_price = retail_price
-        self.num_copies_purchased_temp = None
+        self.num_copies_purchased_temp = 0
         self.number = number
 
     def addContents(self):
