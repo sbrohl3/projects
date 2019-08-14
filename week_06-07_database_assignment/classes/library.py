@@ -24,8 +24,9 @@ class library():
             ## Checking to ensure a duplicate book is not added based on ISBN
             if self.isbn in row.isbn:
                 print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
+                duplicates = True
                 break
-        
+
             else:
                 duplicates = False
         

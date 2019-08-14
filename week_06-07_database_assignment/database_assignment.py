@@ -64,13 +64,20 @@ while program_run == True:
         ## Displaying the users current changes to screen    
         library.displayInput()
         ## Prompting the user if they wish to save their changes
-        save_add = input("Do you wish to save your addition to the database? Y/N: ")
-        if save_add.lower() == "y":
-            library.addContents()
-        
-        elif save_add.lower() == "n":
-            print("Discarding changes and returning to main menu...")
-            program_run = True
+        save_add = False
+        while save_add == False:
+            save_add = input("Do you wish to save your addition to the database? Y/N: ")
+            if save_add.lower() == "y":
+                library.addContents()
+                save_add = True
+            
+            elif save_add.lower() == "n":
+                print("Discarding changes and returning to main menu...")
+                save_add = True
+
+            else:
+                print("You have entered an invalid response. Please answer (Y)es or (N)o.")
+                save_add = False
 
     ## An option to edit books in the current library
     elif selection == '3':
@@ -197,3 +204,10 @@ while program_run == True:
     else:
         print("You have chosen an invalid option or entered an incorrect value. Please try again.")
         program_run = True
+
+## def life():
+## homework = True
+## while homework == True:
+##   print("Drink coffee.")
+##life()
+## :)
