@@ -12,6 +12,7 @@ class library():
         self.num_copies_purchased = num_copies_purchased 
         self.num_copies_checked = num_copies_checked
         self.retail_price = retail_price
+        self.num_copies_purchased_temp = None
         self.number = number
 
     def addContents(self):
@@ -81,13 +82,14 @@ class library():
                         if self.number == count:
                             print("\nWhat would you like to edit for " + row.book_title + "?\n\n" + "\t1. Title: " + row.book_title + "\n\t2. Author: " + row.book_author + "\n\t3. ISBN #:" + row.isbn + "\n\t4. # Copies Purchased: " + str(row.num_copies_purchased) + "\n\t5. # Copies Checked Out: " + str(row.num_copies_checked) + "\n\t6. Retail Price: " + str(row.retail_price))
                             ## The number of books purchased is temporarily stored for a later validation check against the number of books checked out 
-                            num_copies_purchased_temp = row.num_copies_purchased
+                            self.num_copies_purchased_temp = row.num_copies_purchased
                             edit_book = True
-                            return (False, num_copies_purchased_temp)
+                            return False
                         
-                        elif self.number > len(row) + 1:
+                        elif self.number > len(my_query_result) + 1:
                             ## If the user inputs a number that does not correspond with a value that can be changed an error is thrown and they are re-prompted
                             print("You did not enter a number that corresponds to a value listed above. Please try again.")
+                            edit_book = False
                             return True
 
                         else:
@@ -295,7 +297,7 @@ class library():
                 print("\nYou have provided an invalid number. Please try again.")
                 return False
        
-    def validateNumCopiesChecked2(self, passed_value):
+    def validateNumCopiesChecked2(self):
         """Another class for validating the number of books checked out; This class is exclusively used by the editBook class"""
         ## Declaring a Flag to control a while loop
         num_copies_checked_ok = False
@@ -313,7 +315,7 @@ class library():
 
                 else:
                     ## If the number of books can be cast as an int and is less then amount of purchased books on-hand validation is passed
-                    if int(self.num_copies_checked) <= int(passed_value):
+                    if int(self.num_copies_checked) <= int(self.num_copies_purchased_temp):
                         print("The inputted number of copies checked out is: " + str(self.num_copies_checked))
                         num_copies_checked_ok = True
                         return True

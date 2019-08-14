@@ -79,10 +79,9 @@ while program_run == True:
         ## Prompting the user to select the book they wish to edit
         library.number = input("Please enter the number next to the book you wish to edit: ")
         return_values = library.editBook()
-        editing = return_values[0]
+        editing = return_values
     
-        editing = True
-        while editing:
+        while not editing:
             ## Asking the user to select a book value they wish to edit          
             edit_selection = input("\nPlease enter a number that corresponds to a value you wish to edit: ")
             if edit_selection == "1":
@@ -126,9 +125,8 @@ while program_run == True:
                 while copies_checked_check == False:
                     ## A prompt to validate and edit the selected book's # of copies checked out 
                     library.num_copies_checked = input("What would you like to change the number of checked out copies to?: ")
-                    num_copies_purchased_temp = return_values[1]
                     ## The temporary value of books purchased is passed through to the validation class exclusively made for editing the number of checked out books
-                    copies_checked_check = library.validateNumCopiesChecked2(num_copies_purchased_temp)
+                    copies_checked_check = library.validateNumCopiesChecked2()
                     option = "num_copies_checked"
                     library.updateContents(option, library.num_copies_checked)
 
@@ -142,35 +140,42 @@ while program_run == True:
                     library.updateContents(option, library.retail_price)
 
             ## A prompt asking whether the user wishes to continue editing their selected book
-            continue_prompt = input("Do you wish to continue making changes to this book: Y/N ")
-            if continue_prompt.lower() == "y":
-                editing = True
+            making_changes = True
+            while making_changes == True:
+                continue_prompt = input("Do you wish to continue making changes to this book: Y/N ")
+                if continue_prompt.lower() == "y":
+                    editing = True
+                    making_changes = False
 
-            elif continue_prompt.lower() == "n":
-                editing = False
-                ## A prompt asking the user if they wish to save their updated edits to the database
-                save_add = False
-                while save_add == False:
-                    save_add = input("Do you wish to save your updates to the database? Y/N: ")
-                    if save_add.lower() == "y":
-                        editing = False
-                        save_add = True
-                        library.commitChanges()
+                elif continue_prompt.lower() == "n":
+                    making_changes = False
+                    editing = False
+                    ## A prompt asking the user if they wish to save their updated edits to the database
+                    save_add = False
+                    while save_add == False:
+                        save_add = input("Do you wish to save your updates to the database? Y/N: ")
+                        if save_add.lower() == "y":
+                            editing = True
+                            save_add = True
+                            library.commitChanges()
+                            
+                        ## A prompt to discard changes if a user chooses not to save their updates
+                        elif save_add.lower() == "n":
+                            print("Discarding changes and returning to main menu...")
+                            editing = True
+                            save_add = True
+                            program_run = True
                         
-                    ## A prompt to discard changes if a user chooses not to save their updates
-                    elif save_add.lower() == "n":
-                        print("Discarding changes and returning to main menu...")
-                        editing = False
-                        save_add = True
-                        program_run = True
-                    
-                    else:
-                        ## An error message if a user enters an invalid response
-                        print("You have entered an invalid response. Please answer (Y)es or (N)o.")
-                        
-            else:
-                ## An error message if a user enters an invalid response
-                print("You have entered an invalid response. Please answer (Y)es or (N)o.")
+                        else:
+                            ## An error message if a user enters an invalid response
+                            print("You have entered an invalid response. Please answer (Y)es or (N)o.")
+                            save_add = False
+                            
+                else:
+                    ## An error message if a user enters an invalid response
+                    print("You have entered an invalid response. Please answer (Y)es or (N)o.")
+                    making_changes = True
+
     
     ## An option to delete library entries
     elif selection == '4':
