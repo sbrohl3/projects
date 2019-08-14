@@ -20,18 +20,19 @@ class library():
         my_query_result = db_connection.executeSelectQuery("SELECT isbn FROM dbo.library_catalogue")
         ## Looping through all of the records in the library table
         for row in my_query_result:
-            temp_isbn_list = []
-            temp_isbn_list.append(row.isbn)
-            print(temp_isbn_list)
-        ## Checking to ensure a duplicate book is not added based on ISBN
-        if self.isbn in temp_isbn_list:
-            print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
-            
-
-        else:
-            print("Saving book to the database...")
-            db_connection.executeQuery("INSERT INTO dbo.library_catalogue (book_author, book_title, isbn, num_copies_purchased, num_copies_checked, retail_price) VALUES ('" + self.book_author.title() + "', '" + self.book_title.replace("\'", "\'\'").title() + "', '" + self.isbn + "', '" + str(self.num_copies_purchased) + "', '" + str(self.num_copies_checked) + "', '" + str(self.retail_price) + "'); COMMIT")
-            
+            ## Checking to ensure a duplicate book is not added based on ISBN
+            if self.isbn in row.isbn:
+                print("You are attempting to add a duplicate entry! Discarding changes and returning to the main menu.")
+                duplicates = True
+                break
+        
+            else:
+                duplicates = False
+        
+        if duplicates == False:
+                print("Saving book to the database...")
+                db_connection.executeQuery("INSERT INTO dbo.library_catalogue (book_author, book_title, isbn, num_copies_purchased, num_copies_checked, retail_price) VALUES ('" + self.book_author.title() + "', '" + self.book_title.replace("\'", "\'\'").title() + "', '" + self.isbn + "', '" + str(self.num_copies_purchased) + "', '" + str(self.num_copies_checked) + "', '" + str(self.retail_price) + "'); COMMIT")
+                
 
     def currentList(self):
         """A class that displays the current list of books in the database"""
