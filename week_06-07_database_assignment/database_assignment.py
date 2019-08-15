@@ -98,7 +98,7 @@ while program_run == True:
                     library.book_title = input("\nWhat would you like to change the title to?: ")
                     title_check = library.validateBookTitle()
                     option = "book_title"
-                    library.updateContents(option, library.book_title)
+                    library.updateContents(option, library.book_title.title())
 
             elif edit_selection == "2":
                 author_check = False
@@ -107,7 +107,7 @@ while program_run == True:
                     library.book_author = input("What would you like to change the Author's name to?: ")
                     author_check = library.validateAuthorName()
                     option = "book_author"
-                    library.updateContents(option, library.book_author)
+                    library.updateContents(option, library.book_author.title())
 
             elif edit_selection == "3":
                 isbn_check = False
@@ -151,12 +151,12 @@ while program_run == True:
             while making_changes == True:
                 continue_prompt = input("Do you wish to continue making changes to this book: Y/N ")
                 if continue_prompt.lower() == "y":
-                    editing = True
+                    editing = False
                     making_changes = False
 
                 elif continue_prompt.lower() == "n":
                     making_changes = False
-                    editing = False
+                    editing = True
                     ## A prompt asking the user if they wish to save their updated edits to the database
                     save_add = False
                     while save_add == False:

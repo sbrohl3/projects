@@ -20,7 +20,7 @@ class Validator():
             ## While loop to have user retry their input if they enter incorrectly
             while not author_name_ok:
                 ## Declaring a list of characters that are not allowed in book_author
-                bad_chars = ["!", "\"", "@", "#", "$", "%", "^", "&", "*","(", ")", "_", "=", "+", ",", "<",">", "/", "?", ";", ":", "[", "]", "{", "}", "\\" ]
+                bad_chars = ["!", "\"", "@", "#", "$", "%", "^", "&", "*","(", ")", "_", "=", "+", ",", "<",">", "/", "?", ";", ":", "[", "]", "{", "}", "\\", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
                 if self.book_author:
                     ## Checking book_author for bad characters
                     for char in self.book_author:
@@ -31,7 +31,7 @@ class Validator():
                             return False
                                 
                         else:
-                            print("The inputted Author name is: " + self.book_author)
+                            print("The inputted Author name is: " + self.book_author.title())
                             author_name_ok = True
                             return True
                 ## if no input is provided re-prompt
@@ -46,7 +46,7 @@ class Validator():
         ## While loop to have user retry their input if they enter incorrectly
         while not book_title_ok:
             if self.book_title:
-                print("The inputted title is: " + self.book_title)
+                print("The inputted title is: " + self.book_title.title())
                 book_title_ok = True
                 return True
 
