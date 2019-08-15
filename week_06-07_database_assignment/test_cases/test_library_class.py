@@ -67,9 +67,10 @@ class TestLibraryClass(unittest.TestCase):
    
     def test_valid_copies_checked(self):
         """Here are some int checks I know will validate to True"""
-        valid_number_types_to_test = ["0", "0", "0"]
+        valid_number_types_to_test = ["2", "3", "15"]
         
         for number_type in valid_number_types_to_test:
+            self.library.num_copies_purchased = number_type
             self.library.num_copies_checked = number_type
             self.assertTrue(self.library.validateNumCopiesChecked())
     
@@ -83,9 +84,10 @@ class TestLibraryClass(unittest.TestCase):
 
     def test_valid_copies_checked2(self):
         """Here are some int checks I know will validate to True"""
-        valid_number_types_to_test = ["0", "0", "0"]
+        valid_number_types_to_test = ["1", "2", "3"]
         
         for number_type in valid_number_types_to_test:
+            self.library.num_copies_purchased_temp = number_type
             self.library.num_copies_checked = number_type
             self.assertTrue(self.library.validateNumCopiesChecked2())
 
