@@ -79,6 +79,7 @@ class TestLibraryClass(unittest.TestCase):
         invalid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
         
         for number_type in invalid_number_types_to_test:
+            self.library.num_copies_purchased = number_type
             self.library.num_copies_checked = number_type
             self.assertFalse(self.library.validateNumCopiesChecked())
 
@@ -96,6 +97,7 @@ class TestLibraryClass(unittest.TestCase):
         invalid_number_types_to_test = ["!5", "3@31", "25^^$sdf"]
         
         for number_type in invalid_number_types_to_test:
+            self.library.num_copies_purchased_temp = number_type
             self.library.num_copies_checked = number_type
             self.assertFalse(self.library.validateNumCopiesChecked2())
 
