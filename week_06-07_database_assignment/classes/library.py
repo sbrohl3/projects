@@ -114,7 +114,7 @@ class library(Validator):
                 count = 1
                 ## Looping throughht the library table to select a value that matches the number input by the user
                 for row in my_query_result:
-                    if self.number == str(count):
+                    if self.number == str(count) and row in my_query_result:
                         confirmation = input("Are you sure you want to delete " + "\"" + str(row.book_title) + "\"" + " from the library catalogue? Y/N: ")
                         if confirmation.lower() == "y":
                             ## Deleting the user's selection and committing the change to the database
@@ -141,9 +141,14 @@ class library(Validator):
                         delete_book_ok = True
                         return True  
 
+                    
+                    elif self.number > str(len(my_query_result)):
+                        print("You have entered a number that does not correspond with a book in the database. Please Try again.")
+                        return False
+                        
+
                     else:
-                        ## Incrementing a counter variable to loop through queried results
-                        count += 1
+                        count += 1   
                                
             else:
                 ## If an invalid selection is made an error message is thrown and the user is given a re-prompt

@@ -25,15 +25,20 @@ class Validator():
                     ## Checking book_author for bad characters
                     for char in self.book_author:
                         ## If bad characters are found, exit the program
-                        if char in bad_chars or char.isspace():
+                        if char not in bad_chars:
+                            invalid_char = False
+                            
+                                
+                        else:
                             print("\nThe Author's name you provided contains invalid characters. Please try again.")
                             author_name_ok = False
                             return False
-                                
-                        else:
-                            print("The inputted Author name is: " + self.book_author.title())
-                            author_name_ok = True
-                            return True
+
+                    if invalid_char == False:
+                        print("The inputted Author name is: " + self.book_author.title())
+                        author_name_ok = True
+                        return True
+
                 ## if no input is provided re-prompt
                 else:
                     print("\nYou have not entered an Author's name. Please try again.")
@@ -67,16 +72,24 @@ class Validator():
                 ## Checking ISBN for bad characters
                 for char in self.isbn:
                     ## If characters match digits or contains -, then proceed with the program
-                    if char in good_chars and len(self.isbn) == 14 or len(self.isbn) == 13 or len(self.isbn) == 11 or len(self.isbn) == 10:
-                        print("The inputted ISBN name is: " + self.isbn)
-                        isbn_ok = True
-                        return True
+                    if char in good_chars:
+                        if len(self.isbn) == 14 or len(self.isbn) == 13 or len(self.isbn) == 11 or len(self.isbn) == 10:
+                            invalid_char = False
+
+                        else:
+                            print("\nYour ISBN is not properly formatted. Please ensure you have placed your \"-\"'s correctly and try again")
+                            return False
                             
                     else:
-                        ## If the ISBN does not meet formatting standards an error is thrown
-                        print("\nYour ISBN is not properly formatted. Please ensure you have placed your \"-\"'s correctly and try again")
-                        isbn_ok = False
-                        return False
+                       ## If the ISBN does not meet formatting standards an error is thrown
+                       print("Your ISBN contains an invalid character. Please try again.")
+                       return False
+                
+                if invalid_char == False:
+                    print("The inputted ISBN name is: " + self.isbn)
+                    isbn_ok = True
+                    return True
+
             ## if no input is provided re-prompt
             else:
                 print("\nYou have not entered an ISBN. Please try again.")
