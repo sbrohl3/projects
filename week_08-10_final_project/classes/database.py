@@ -50,10 +50,7 @@ class Database(Validator):
                 if record == row.crm_id:
                     print("Record Number: " + str(row.crm_id) + " | First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip Code: " + str(row.zip) + " | Company Name: " + str(row.company) + " | Primary Phone#: " + str(row.primary_phone) + " | Secondary Phone#: " + str(row.secondary_phone) + " | Email Address: " + str(row.email_address))
                     edit_field = input("\nWhat field would you like to edit in this record: ")
-                
-                elif record != row.crm_id:
-                    print("\nYou have entered an invalid field. Please choose a field from record number " + row.crm_id + " database, or enter \"q\" to return to the main menu.")
-            
+
 
         elif selected_database == "Mailings":
             my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database + " Where mail_id=" + str(record))
