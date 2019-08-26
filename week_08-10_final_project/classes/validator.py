@@ -6,6 +6,7 @@ class Validator():
         self.first_name = first_name
         self.last_name = last_name
         self.company_name = company_name
+        self.crm_company_name = ""
         self.address = address
         self.city = city
         self.county = county
@@ -59,12 +60,17 @@ class Validator():
 
     def validate_companyName(self):
         """A method to validate a user's inputted company name"""
-        ## Need to add in an option to allow blank company name if data going to CRM database!!!!
 
-        if self.company_name:
+        if self.company_name and self.company_name != "N/A":
             print("The inputted company name is: " + "\"" + self.company_name.title() + "\".")
+            self.crm_company_name = self.company_name.title()
             return True
 
+        elif self.company_name.upper() == "N/A":
+            print("The inputted company name is: " + "\"" + self.company_name.upper() + "\".")
+            self.crm_company_name = ""
+            return True
+            
         ## if no input is provided re-prompt
         else:
             print("\nYou have not entered a company name. Please Try again.")
@@ -114,6 +120,7 @@ class Validator():
 
     def validate_phoneNumber(self, option, phone_number_part):
         """A method to validate a user's inputted phone number"""
+
         ## Need to add in an option to allow blank secondary phone number if data going to CRM database!!!!
 
         ## A list of acceptable characters for the phone number

@@ -165,7 +165,7 @@ class library(Validator):
             for row in my_query_result:
                 if self.number == count:
                     ## Update selected row with new values; Does not commit changes!
-                    db_connection.executeQuery("UPDATE dbo.library_catalogue SET " + option +"='" + str(passed_value) + "' WHERE book_title='" + row.book_title.replace("\'", "\'\'") + "'")
+                    db_connection.executeQuery("UPDATE dbo.library_catalogue SET " + option +"='" + str(passed_value.replace("\'", "\'\'")) + "' WHERE book_title='" + row.book_title.replace("\'", "\'\'") + "'")
                     updatecontents = True
                     break
 
