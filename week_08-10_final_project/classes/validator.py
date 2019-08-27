@@ -21,7 +21,7 @@ class Validator():
 
         ## Declaring a list of characters that are not allowed in the user's address
         bad_chars = ["!", "\"", "\'", "@", "$", "%", "^", "&","*", "_", "=", "+", "<",">", "?", ";", "[", "]", "{", "}"]
-        if self.address:
+        if self.address.rstrip():
             ## Checking the user's address for bad characters
             for char in self.address:
                 ## If bad characters are found re-prompt
@@ -40,12 +40,13 @@ class Validator():
         else:
             print("You have not provided an address. Please try again.")
             return False
+        
 
     def validate_cityInfo(self, option, passed_info):
         """A method to validate a user's city and county"""
 
         good_characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\'", " "]
-        if passed_info:
+        if passed_info.rstrip():
             for char in passed_info.lower():
                 if char in good_characters:
                     info_valid = True
@@ -57,16 +58,19 @@ class Validator():
             if info_valid == True:
                 print("The inputted " + option + " name is: " + "\"" + passed_info.title() + "\".")
                 return True
+        else:
+            print("Invalid entry. Please try again.")
+            return False
 
     def validate_companyName(self):
         """A method to validate a user's inputted company name"""
 
-        if self.company_name and self.company_name != "N/A":
+        if self.company_name.rstrip() and self.company_name.rstrip() != "N/A":
             print("The inputted company name is: " + "\"" + self.company_name.title() + "\".")
             self.crm_company_name = self.company_name.title()
             return True
 
-        elif self.company_name.upper() == "N/A":
+        elif self.company_name.upper().rstrip() == "N/A":
             print("The inputted company name is: " + "\"" + self.company_name.upper() + "\".")
             self.crm_company_name = ""
             return True
@@ -105,7 +109,7 @@ class Validator():
         """A method to validate a user's inputted first and last name"""
 
         good_characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "-", "\'"]
-        if passed_name:
+        if passed_name.rstrip():
             for char in passed_name.lower():
                 if char in good_characters:
                     name_valid = True
@@ -118,6 +122,10 @@ class Validator():
                 print("The inputted " + option + " is: " + "\"" + passed_name.title() + "\".")
                 return True
 
+        else:
+            print("Invalid entry. Please try again.")
+            return False
+            
     def validate_phoneNumber(self, option, phone_number_part):
         """A method to validate a user's inputted phone number"""
 

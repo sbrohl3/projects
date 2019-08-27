@@ -34,17 +34,23 @@ class Database(Validator):
     def addRecord(self):
         """A method for adding a record to all databases"""
 
-        print("Saving entries to the CRM database...")
-        db_connection.executeQuery("INSERT INTO dbo.CRM (f_name, l_name, company, address, city, county, state, zip, primary_phone, secondary_phone, email_address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + "', '" + self.last_name.replace("\'", "\'\'").title() + "', '" + self.crm_company_name.replace("\'", "\'\'") + "', '" + self.address + "', '" + self.city.replace("\'", "\'\'") + "', '" + self.county.replace("\'", "\'\'") + "', '" + self.state_code.upper() + "', '" + str(self.zip_code) + "', '" + self.phone_number + "', '" + self.phone_number_2 + "' , '" + self.email_address + "'); COMMIT")
+        ## Saving recorded entries to the CRM and Mailings Database
+        print("Saving entries to the CRM and Mailings database...")
+        db_connection.executeQuery("INSERT INTO dbo.CRM (f_name, l_name, company, address, city, county, state, zip, primary_phone, secondary_phone, email_address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + "', '" + self.last_name.replace("\'", "\'\'").title() + "', '" + self.crm_company_name.replace("\'", "\'\'").title() + "', '" + self.address.title() + "', '" + self.city.replace("\'", "\'\'").title() + "', '" + self.county.replace("\'", "\'\'").title() + "', '" + self.state_code.upper() + "', '" + str(self.zip_code) + "', '" + self.phone_number + "', '" + self.phone_number_2 + "' , '" + self.email_address + "'); COMMIT")
+        db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + " " + self.last_name.replace("\'", "\'\'").title() + "', '" + self.company_name.replace("\'", "\'\'").title() + "','" + self.address + " " + self.city.title() + " " + self.county.title() + " " + self.state_code.upper() + " " + str(self.zip_code) + "'); COMMIT")        
+
+    def commitChanges(self):
+        """A class that commits all update changes to the database"""
         
-        print("\nSaving entries to the Mailings database...")
-        db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + " " + self.last_name.replace("\'", "\'\'").title() + "', '" + self.company_name.replace("\'", "\'\'") + "','" + self.address + " " + self.city + " " + self.county + " " + self.state_code + " " + str(self.zip_code) + "'); COMMIT")        
+        ## User is prompted that changes are being committed
+        print("Committing changes to the database...")
+        db_connection.executeQuery("COMMIT")
 
     def displayInput(self):
         """A class that displays compiled user input before committing to the database"""
 
         ## Before changes are committed the user can see all changes made
-        print("\nCurrent Record:\n===============\nName: " + self.first_name.title() + self.last_name.title(), + "\nCompany Name: " + self.company_name.title() +"\nAddress: " + self.address.title(), "\nCity: " + self.city + "\nState: " + self.state_code.upper() + "\nZip Code: " + self.zip_code + "\nPrimary Phone: " + self.phone_number  + "\nSecondary Phone: " + self.phone_number_2 + "\nEmail Address: " + self.email_address)
+        print("\nCurrent Record:\n===============\nName: " + self.first_name.title() + " " + self.last_name.title() + "\nCompany Name: " + self.company_name.title() + "\nAddress: " + self.address.title() + "\nCity: " + self.city.title() + "\nState: " + self.state_code.upper() + "\nZip Code: " + str(self.zip_code) + "\nPrimary Phone: " + self.phone_number  + "\nSecondary Phone: " + self.phone_number_2 + "\nEmail: " + self.email_address)
         
     def editRecord(self, record, selected_database):
         """A method for editing a record in a chosen database"""
@@ -54,7 +60,7 @@ class Database(Validator):
             my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database + "; ")
             for row in my_query_result:
                 if record == row.crm_id:
-                    print("\n" + str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip Code: " + str(row.zip) + " | Company Name: " + str(row.company) + " | Primary Phone#: " + str(row.primary_phone) + " | Secondary Phone#: " + str(row.secondary_phone) + " | Email Address: " + str(row.email_address))
+                    print("\n" + str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Company: " + str(row.company) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address))
                     return False
 
                 else:
@@ -69,7 +75,7 @@ class Database(Validator):
             my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database + "; ")
             for row in my_query_result:
                 if record == row.mail_id:
-                    print("\n" + str(row.mail_id) + ". Name: " + str(row.name) + " | Company name: " + str(row.company) + " | Address: " + str(row.address))
+                    print("\n" + str(row.mail_id) + ". Name: " + str(row.name) + " | Company: " + str(row.company) + " | Address: " + str(row.address))
                     return False
 
                 else:
@@ -79,16 +85,13 @@ class Database(Validator):
                 print("\nA record matching that number does not exist. Please try again.")
                 return True
 
-
     def importFile(self):
         """A method for importing in a data file"""
 
-        ## Backing up old CSV file before beginning import operations
-        if os.path.isfile("text_files/customers.csv"):
+        ## Backing up old CSV and JSON files before beginning import operations
+        if os.path.isfile("text_files/customers.csv") and os.path.isfile("text_files/customers.json"):
+            print("\nCreating a backup of the existing customer .csv and .json files before overwriting")
             shutil.copy2("text_files/customers.csv", "text_files/customers.csv.backup" + str(time.time()))
-        
-        ## Backing up old JSON file before beginning import operations
-        if os.path.isfile("text_files/customers.json"):
             shutil.copy2("text_files/customers.json", "text_files/customers.json.backup" + str(time.time()))
 
         ## Importing the text file for cleaning then converting to CSV
@@ -191,11 +194,28 @@ class Database(Validator):
         
         if db_choice == "CRM":
             for row in my_query_result:     
-                print(str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip Code: " + str(row.zip) + " | Company Name: " + str(row.company) + " | Primary Phone#: " + str(row.primary_phone) + " | Secondary Phone#: " + str(row.secondary_phone) + " | Email Address: " + str(row.email_address) + "\n")
+                print(str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Company Name: " + str(row.company) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address) + "\n")
 
         else:
             for row in my_query_result:     
-                print(str(row.mail_id) + ". Name: " + str(row.name) + " | Company Name: " + str(row.company) + " | Address: " + str(row.address) + "\n")
+                print(str(row.mail_id) + ". Name: " + str(row.name) + " | Company: " + str(row.company) + " | Address: " + str(row.address) + "\n")
 
-    def updateContents(self):
-        None
+    def updateContents(self, record, option, selected_database, passed_value):
+        """A class for updating the contents of a book; does not commit changes until approved by the user with the commit class"""
+
+        ## A query to select all contents from the selected database
+        my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database)
+        
+        if selected_database == "CRM":
+            for row in my_query_result:
+                if record == row.crm_id:
+                    ## Update selected row with new values; Does not commit changes!
+                    db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                    break
+        
+        else:
+            for row in my_query_result:
+                if record == row.mail_id:
+                    ## Update selected row with new values; Does not commit changes!
+                    db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")
+                    break
