@@ -1,6 +1,8 @@
 import unittest
 from classes.database import Database
 
+## python -m unittest test_cases.test_database_class
+
 class TestDatabaseClass(unittest.TestCase):
     """A Class to test the Database class's Validator"""
 
@@ -94,7 +96,6 @@ class TestDatabaseClass(unittest.TestCase):
             self.database.first_name = name
             self.assertFalse(self.database.validate_NamePart(option, self.database.first_name))
 
-    
     def test_valid_first_name(self):
         """Here are some valid first name checks I know will validate to True"""
 
@@ -105,18 +106,16 @@ class TestDatabaseClass(unittest.TestCase):
             self.database.first_name = name
             self.assertTrue(self.database.validate_NamePart(option, self.database.first_name))
 
-
     def test_invalid_last_name(self):
         """Here are some invalid last name checks I know will validate to False"""
 
-        invalid_name_to_test = ["Brohl", "Petz", "Vaillancourt", "Gibson", "Thomas", "Zaman", "Schippers"]
+        invalid_name_to_test = ["Br0hl", " ", "P3tz", " V@ill@ncourt", "G!bs0n", " Th0m@s!_", "Z@man#", " Sch!pp3rs"]
         option = "last name"
 
         for name in invalid_name_to_test:
             self.database.last_name = name
             self.assertFalse(self.database.validate_NamePart(option, self.database.last_name))
 
-    
     def test_valid_last_name(self):
         """Here are some valid last name checks I know will validate to True"""
 
@@ -127,11 +126,82 @@ class TestDatabaseClass(unittest.TestCase):
             self.database.last_name = name
             self.assertTrue(self.database.validate_NamePart(option, self.database.last_name))
 
+    def test_invalid_primary_phone_number(self):
+        """Here are some invalid primary phone number checks I know will validate to False"""
 
-    
- 
+        invalid_primary_phone_number_test = ["58a-5a5-5dg2", " ", "586-adv-1254", "3!3-515-12aa", "586-12!-aa%@", " 586-771-4512", "!!@-123-65A2", "!23-asd-124!"]
+        option = "primary"
 
-## python -m unittest test_cases.test_database_class
+        for phone in invalid_primary_phone_number_test:
+            self.database.phone_number = phone
+            self.assertFalse(self.database.validate_phoneNumber(option, self.database.phone_number))
+
+    def test_valid_primary_phone_number(self):
+        """Here are some valid primary phone number checks I know will validate to True"""
+
+        valid_primary_phone_number_test = ["586-712-4532", "586-714-5412", "586-451-5482", "313-888-1256", "586-123-1254", "518-451-2453", "800-542-1243", "589-125-4125"]
+        option = "primary"
+
+        for phone in valid_primary_phone_number_test:
+            self.database.phone_number = phone
+            self.assertTrue(self.database.validate_phoneNumber(option, self.database.phone_number))   
+
+    def test_invalid_secondary_phone_number(self):
+        """Here are some invalid secondary phone number checks I know will validate to False"""
+
+        invalid_secondary_phone_number_test = ["58a-5a5-5dg2", " ", "586-adv-1254", "3!3-515-12aa", "586-12!-aa%@", " 586-771-4512", "!!@-123-65A2", "!23-asd-124!"]
+        option = "secondary"
+
+        for phone in invalid_secondary_phone_number_test:
+            self.database.phone_number_2 = phone
+            self.assertFalse(self.database.validate_phoneNumber(option, self.database.phone_number_2))
+
+    def test_valid_secondary_phone_number(self):
+        """Here are some valid secondary phone number checks I know will validate to True"""
+
+        valid_secondary_phone_number_test = ["586-712-4532", "586-714-5412", "", "586-451-5482", "313-888-1256", "586-123-1254", "518-451-2453", "800-542-1243", "589-125-4125"]
+        option = "secondary"
+
+        for phone in valid_secondary_phone_number_test:
+            self.database.phone_number_2 = phone
+            self.assertTrue(self.database.validate_phoneNumber(option, self.database.phone_number_2))   
+
+    def test_invalid_state(self):
+        """Here are some invalid state checks I know will validate to False"""
+
+        invalid_states_to_test = ["NX", " ", "MI ", "@!", "Michigan", " C@n@d@", " UI ", " AZ"]
+       
+        for state in invalid_states_to_test:
+            self.database.state_code = state
+            self.assertFalse(self.database.validate_State())
+
+    def test_valid_state(self):
+        """Here are some valid state checks I know will validate to True"""
+
+        valid_states_to_test = ["MI", "AZ", "TN", "KY", "HI", "WI", "UT", "ID"]
+       
+        for state in valid_states_to_test:
+            self.database.state_code = state
+            self.assertTrue(self.database.validate_State())
+
+    def test_invalid_zip_code(self):
+        """Here are some invalid zip code checks I know will validate to False"""
+
+        invalid_zip_codes_to_test = ["48066! ", "Michigan", "4806689", "!48066%#$", "Roseville", "480366412", "41124112", "!@48021"]
+       
+        for zip_code in invalid_zip_codes_to_test:
+            self.database.zip_code = zip_code
+            self.assertFalse(self.database.validate_zipCode())
+
+    def test_valid_zip_code(self):
+        """Here are some invalid zip code checks I know will validate to True"""
+
+        valid_zip_codes_to_test = ["48066", "48021", "48036", "48001", "48002", "48083", "48037", "4800"]
+       
+        for zip_code in valid_zip_codes_to_test:
+            self.database.zip_code = zip_code
+            self.assertTrue(self.database.validate_zipCode())
+
 
 
     

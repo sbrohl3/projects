@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module database</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>database</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Csteve%5Cdocuments%5Cpythonprograms%5Cit412%5Cit412_sbrohl2%5Cweek_08-10_final_project%5Cclasses%5Cdatabase.py">c:\users\steve\documents\pythonprograms\it412\it412_sbrohl2\week_08-10_final_project\classes\database.py</a></font></td></tr></table>
+    <p><tt>##&nbsp;Importing&nbsp;validation&nbsp;as&nbsp;well&nbsp;as&nbsp;database&nbsp;connection&nbsp;classes</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="csv.html">csv</a><br>
+<a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="shutil.html">shutil</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="classes.validator.html#Validator">classes.validator.Validator</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="database.html#Database">Database</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Database">class <strong>Database</strong></a>(<a href="classes.validator.html#Validator">classes.validator.Validator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Database">Database</a>(first_name='&nbsp;',&nbsp;last_name='&nbsp;',&nbsp;company_name='&nbsp;',&nbsp;address='&nbsp;',&nbsp;city='&nbsp;',&nbsp;county='&nbsp;',&nbsp;state_code='&nbsp;',&nbsp;zip_code=0,&nbsp;phone_number='&nbsp;',&nbsp;phone_number_2='&nbsp;',&nbsp;email_address='&nbsp;')<br>
+&nbsp;<br>
+A&nbsp;class&nbsp;for&nbsp;performing&nbsp;database&nbsp;functions<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="database.html#Database">Database</a></dd>
+<dd><a href="classes.validator.html#Validator">classes.validator.Validator</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Database-__init__"><strong>__init__</strong></a>(self, first_name=' ', last_name=' ', company_name=' ', address=' ', city=' ', county=' ', state_code=' ', zip_code=0, phone_number=' ', phone_number_2=' ', email_address=' ')</dt><dd><tt>A&nbsp;constructor&nbsp;for&nbsp;the&nbsp;<a href="#Database">Database</a>&nbsp;Class</tt></dd></dl>
+
+<dl><dt><a name="Database-addRecord"><strong>addRecord</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;for&nbsp;adding&nbsp;a&nbsp;record&nbsp;to&nbsp;all&nbsp;databases</tt></dd></dl>
+
+<dl><dt><a name="Database-commitChanges"><strong>commitChanges</strong></a>(self)</dt><dd><tt>A&nbsp;class&nbsp;that&nbsp;commits&nbsp;all&nbsp;update&nbsp;changes&nbsp;to&nbsp;the&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="Database-displayInput"><strong>displayInput</strong></a>(self)</dt><dd><tt>A&nbsp;class&nbsp;that&nbsp;displays&nbsp;compiled&nbsp;user&nbsp;input&nbsp;before&nbsp;committing&nbsp;to&nbsp;the&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="Database-editRecord"><strong>editRecord</strong></a>(self, record, selected_database)</dt><dd><tt>A&nbsp;method&nbsp;for&nbsp;editing&nbsp;a&nbsp;record&nbsp;in&nbsp;a&nbsp;chosen&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="Database-importFile"><strong>importFile</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;for&nbsp;importing&nbsp;in&nbsp;a&nbsp;data&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Database-removeRecord"><strong>removeRecord</strong></a>(self, record, selected_database)</dt><dd><tt>A&nbsp;method&nbsp;for&nbsp;removing&nbsp;a&nbsp;record&nbsp;from&nbsp;all&nbsp;databases</tt></dd></dl>
+
+<dl><dt><a name="Database-showContents"><strong>showContents</strong></a>(self, db_choice)</dt><dd><tt>A&nbsp;method&nbsp;for&nbsp;showing&nbsp;all&nbsp;of&nbsp;the&nbsp;contents&nbsp;of&nbsp;a&nbsp;chosen&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="Database-updateContents"><strong>updateContents</strong></a>(self, record, option, selected_database, passed_value)</dt><dd><tt>A&nbsp;class&nbsp;for&nbsp;updating&nbsp;the&nbsp;contents&nbsp;of&nbsp;a&nbsp;book;&nbsp;does&nbsp;not&nbsp;commit&nbsp;changes&nbsp;until&nbsp;approved&nbsp;by&nbsp;the&nbsp;user&nbsp;with&nbsp;the&nbsp;commit&nbsp;class</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="classes.validator.html#Validator">classes.validator.Validator</a>:<br>
+<dl><dt><a name="Database-validate_NamePart"><strong>validate_NamePart</strong></a>(self, option, passed_name)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;first&nbsp;and&nbsp;last&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_State"><strong>validate_State</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;State&nbsp;Code</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_address"><strong>validate_address</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;email&nbsp;address</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_cityInfo"><strong>validate_cityInfo</strong></a>(self, option, passed_info)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;city&nbsp;and&nbsp;county</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_companyName"><strong>validate_companyName</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;company&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_emailAddress"><strong>validate_emailAddress</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;email&nbsp;address</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_phoneNumber"><strong>validate_phoneNumber</strong></a>(self, option, phone_number_part)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;phone&nbsp;number</tt></dd></dl>
+
+<dl><dt><a name="Database-validate_zipCode"><strong>validate_zipCode</strong></a>(self)</dt><dd><tt>A&nbsp;method&nbsp;to&nbsp;validate&nbsp;a&nbsp;user's&nbsp;inputted&nbsp;Zip&nbsp;Code</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="classes.validator.html#Validator">classes.validator.Validator</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>db_connection</strong> = &lt;classes.database_access.DB_Connect object&gt;</td></tr></table>
+</body></html>
