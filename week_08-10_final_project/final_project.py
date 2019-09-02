@@ -13,11 +13,13 @@ program_run = True
 
 ## A loop to run the enirety of my program
 while program_run == True:
+
     ## Printing an option menu to screen
     print("\nPlease select an option below to continue: ")
     print("==============================================")
     print("\t1. Import a new data file \n\t2. Show data currently in a database \n\t3. Add a record to the databases \n\t4. Edit a record \n\t5. Exit program\n")
-    ## User input to choose an option
+    
+    ## User input to choose an option in the main menu
     selection = input("Enter the corresponding number next to the option you wish to select: ")
 
     ## An option to import a new data file 
@@ -41,7 +43,7 @@ while program_run == True:
 
     ## An option to show the current data in a chosen database
     elif selection == '2':
-    
+        
         show_data = True
         while show_data:
             choice = input("\nEnter the number next to the corresponding database you would like to display the cotents of: \n============================================================================================ \n\n\t - 1. CRM \n\t - 2. Mailings \n\nChoice: ") 
@@ -127,7 +129,7 @@ while program_run == True:
         secondary_phone_check = False
         while not secondary_phone_check: 
             ## Validating and adding a new secondary phone number
-            database.phone_number_2 = input("\nPlease enter a secondary phone number: ")
+            database.phone_number_2 = input("\nPlease enter a secondary phone number or press enter to skip: ")
             option = "secondary"
             secondary_phone_check = database.validate_phoneNumber(option, database.phone_number_2)
 
@@ -181,7 +183,7 @@ while program_run == True:
             else:
                 print("You have entered an invalid choice. Please choose from one of the options above, or enter \"q\" to return to the main menu.")
 
-
+            ## After a database is chosen a user may then choose a record from the corresponding database
             while choose_record:
                 record = input("\nPlease enter the record number you wish to edit, or enter \"q\" to return to the main menu: ")
                 
@@ -203,8 +205,14 @@ while program_run == True:
                         selected_database = db_choice
                         print("\nSelected Record to Edit\n=======================")
                         choose_record = database.editRecord(record, selected_database)
-                        edit_choice = True
+                        
+                        if choose_record == False:
+                            edit_choice = True
+                        
+                        else:
+                            edit_choice = False
 
+                ## After a record has been selected a user can then choose to edit or delete the selected record
                 while edit_choice:
                     choice = input("\nDo you want to (E)dit or (D)elete this record: ")
                     if choice.upper() == "E":
@@ -225,15 +233,20 @@ while program_run == True:
 
                     else:
                         print("\nInvalid selection. Please enter \"E\" to Edit, \"D\" to Delete, or \"Q\" to return to the main menu.")
+                        delete_record = False
+                        editing = False
 
+                    ## If a user chooses to delete a record they will prompted with the record choice and an option whether to delete it or not
                     while delete_record:
-                        ## Display current library list
+                        ## Display current record list
                         print("\nSelected Record to Delete\n=========================")
                         database.editRecord(record, selected_database)
-                        ## A prompt to delete a selected book in the library
+                        ## A prompt to delete a selected record in the database
                         delete_record = database.removeRecord(record, selected_database)
-                        
+
+                    ## If a user chooses to edit a record they will be given an option to choose a field to edit    
                     while editing:
+                        ## If the selected database is the CRM, users will be given a separate list of edit options
                         if db_choice == "CRM":
                             field_choice = input("\nWhat field would you like to edit (Example: First Name): ")
 
@@ -243,41 +256,42 @@ while program_run == True:
                                     ## Validating and adding a new first name
                                     database.first_name = input("\nPlease enter a first name: ")
                                     option = "first name"
+                                    first_name_check = database.validate_NamePart(option, database.first_name)
                                     making_changes = True
                                     field_option = "f_name"
                                     database.updateContents(record, field_option, db_choice, database.first_name)
-                                    first_name_check = database.validate_NamePart(option, database.first_name)
-                                 
+                                    
                             elif field_choice.lower() == "last name":    
                                 last_name_check = False
                                 while not last_name_check: 
                                     ## Validating and adding a new last name
                                     database.last_name = input("\nPlease enter a last name: ")
                                     option = "last name"
+                                    last_name_check = database.validate_NamePart(option, database.last_name)
                                     making_changes = True
                                     field_option = "l_name"
                                     database.updateContents(record, field_option, db_choice, database.first_name)
-                                    last_name_check = database.validate_NamePart(option, database.last_name)
                                     
                             elif field_choice.lower() == "company":
                                 company_name_check = False
                                 while not company_name_check: 
                                     ## Validating and adding a new company name
                                     database.company_name = input("\nPlease enter a company name or enter \"N/A\" if no company name: ")
+                                    company_name_check = database.validate_companyName()
                                     making_changes = True
                                     field_option = "company"
-                                    database.updateContents(record, field_option, db_choice, database.crm_company_name)
-                                    company_name_check = database.validate_companyName()
-                  
+                                    database.updateContents(record, field_option, db_choice, database.company_name)
+                                    
                             elif field_choice.lower() == "address":
                                 address_check = False
                                 while not address_check: 
                                     ## Validating and adding a new address
                                     database.address = input("\nPlease enter an address: ")
+                                    address_check = database.validate_address()
                                     making_changes = True
                                     field_option = "address"
                                     database.updateContents(record, field_option, db_choice, database.address)
-                                    address_check = database.validate_address()
+                                    
                                 
                             elif field_choice.lower() == "city":
                                 city_check = False
@@ -285,40 +299,43 @@ while program_run == True:
                                     ## Validating and adding a new city
                                     database.city = input("\nPlease enter a city: ")
                                     option = "city"
+                                    city_check = database.validate_cityInfo(option, database.city)
                                     making_changes = True
                                     field_option = "city"
                                     database.updateContents(record, field_option, db_choice, database.city)
-                                    city_check = database.validate_cityInfo(option, database.city)
+                                    
                                     
                             elif field_choice.lower() == "county":
                                 county_check = False
                                 while not county_check: 
                                     ## Validating and adding a new county
                                     database.county = input("\nPlease enter a county: ")
+                                    county_check = database.validate_cityInfo(option, database.county)
                                     making_changes = True
                                     field_option = "county"
                                     database.updateContents(record, field_option, db_choice, database.county)
-                                    county_check = database.validate_cityInfo(option, database.county)
-
+                                   
                             elif field_choice.lower() == "state":
                                 state_check = False
                                 while not state_check: 
                                     ## Validating and adding a new state
                                     database.state_code = input("\nPlease enter an abbreviated state code (example: MI): ")
+                                    state_check = database.validate_State()
                                     making_changes = True
                                     field_option = "state"
                                     database.updateContents(record, field_option, db_choice, database.state_code)
-                                    state_check = database.validate_State()
+                                    
 
                             elif field_choice.lower() == "zip":
                                 zip_code_check = False
                                 while not zip_code_check: 
                                     ## Validating and adding a new zip code
                                     database.zip_code = input("\nPlease enter a 4 or 5 digit Zip Code: ")
+                                    zip_code_check = database.validate_zipCode()
                                     making_changes = True
                                     field_option = "zip"
-                                    database.updateContents(record, field_option, db_choice, database.zip)
-                                    zip_code_check = database.validate_zipCode()
+                                    database.updateContents(record, field_option, db_choice, database.zip_code)
+                                    
 
                             elif field_choice.lower() == "primary phone":
                                 primary_phone_check = False
@@ -326,35 +343,38 @@ while program_run == True:
                                     ## Validating and adding a new phone number
                                     database.phone_number = input("\nPlease enter a phone number: ")
                                     option = "primary"
+                                    primary_phone_check = database.validate_phoneNumber(option, database.phone_number)
                                     making_changes = True
                                     field_option = "primary_phone"
                                     database.updateContents(record, field_option, db_choice, database.phone_number)
-                                    primary_phone_check = database.validate_phoneNumber(option, database.phone_number)
-                            
+                                    
                             elif field_choice.lower() == "secondary phone":
                                 secondary_phone_check = False
                                 while not secondary_phone_check: 
                                     ## Validating and adding a new secondary phone number
-                                    database.phone_number_2 = input("\nPlease enter a secondary phone number: ")
+                                    database.phone_number_2 = input("\nPlease enter a secondary phone number or press enter to skip: ")
                                     option = "secondary"
+                                    secondary_phone_check = database.validate_phoneNumber(option, database.phone_number_2)
                                     making_changes = True
                                     field_option = "secondary_phone"
                                     database.updateContents(record, field_option, db_choice, database.phone_number_2)
-                                    secondary_phone_check = database.validate_phoneNumber(option, database.phone_number_2)
-
+                                
                             elif field_choice.lower() == "email":
                                 email_check = False
                                 while not email_check: 
                                     ## Validating and adding a new email address
                                     database.email_address = input("\nPlease enter an email address: ")
+                                    email_check = database.validate_emailAddress()
                                     making_changes = True
                                     field_option = "email_address"
                                     database.updateContents(record, field_option, db_choice, database.email_address)
-                                    email_check = database.validate_emailAddress()
+                                    
 
                             else:
                                 print("You have entered an incorrect value. Please try again.")
-                                            
+                                making_changes = False
+
+                        ## If the selected database is the Mailings database, users will be given a separate list of edit options                    
                         elif db_choice == "Mailings":
                             field_choice = input("\nWhat field would you like to edit (Example: Name): ")
 
@@ -383,8 +403,8 @@ while program_run == True:
                                 while not company_name_check: 
                                     ## Validating and adding a new company name
                                     database.company_name = input("\nPlease enter a company name or enter \"N/A\" if no company name: ")
-                                    making_changes = True
                                     company_name_check = database.validate_companyName()
+                                    making_changes = True
                                     field_option = "company"
                                     database.updateContents(record, field_option, db_choice, database.company_name)
                         
@@ -393,66 +413,70 @@ while program_run == True:
                                 while not address_check: 
                                     ## Validating and adding a new address
                                     database.address = input("\nPlease enter an address: ")
-                                    making_changes = True
                                     address_check = database.validate_address()
+                                    making_changes = True
+                                    
 
                                 city_check = False
                                 while not city_check: 
                                     ## Validating and adding a new city
                                     database.city = input("\nPlease enter a city: ")
                                     option = "city"
-                                    making_changes = True
                                     city_check = database.validate_cityInfo(option, database.city)
+                                    making_changes = True
+                                    
 
                                 county_check = False
                                 while not county_check: 
                                     ## Validating and adding a new county
                                     database.county = input("\nPlease enter a county: ")
-                                    making_changes = True
                                     county_check = database.validate_cityInfo(option, database.county)
-
+                                    making_changes = True
+                                   
                                 state_check = False
                                 while not state_check: 
                                     ## Validating and adding a new state
                                     database.state_code = input("\nPlease enter an abbreviated state code (example: MI): ")
-                                    making_changes = True
                                     state_check = database.validate_State()
+                                    making_changes = True
+                                   
 
                                 zip_code_check = False
                                 while not zip_code_check: 
                                     ## Validating and adding a new zip code
                                     database.zip_code = input("\nPlease enter a 4 or 5 digit Zip Code: ")
-                                    making_changes = True
                                     zip_code_check = database.validate_zipCode()
+                                    making_changes = True
+                                    
 
                                 field_option = "address"
                                 making_changes = True
-                                concat_address = database.address + " " + database.city + " " + database.county + " " + database.state_code + " " + database.zip_code
+                                concat_address = database.address.title() + " " + database.city.title() + " " + database.county.title() + " " + database.state_code.upper() + " " + str(database.zip_code)
                                 database.updateContents(record, field_option, db_choice, concat_address)
 
                             else:
                                 print("You have entered an incorrect value. Please try again.")
                                 making_changes = False
                     
-
-                                    
+                        ## The user is prompted on whether or not they would like to continue making edits to their selected record            
                         while making_changes == True:
-                            continue_prompt = input("\nDo you wish to continue making changes to this book: Y/N ")
+                            continue_prompt = input("\nDo you wish to continue making changes to this record: Y/N ")
                             
                             if continue_prompt.lower() == "y":
-                                editing = False
+                                editing = True
                                 making_changes = False
 
                             elif continue_prompt.lower() == "n":
                                 making_changes = False
-                                editing = True
+                                editing = False
                                 ## A prompt asking the user if they wish to save their updated edits to the database
                                 save_add = False   
                                 
                                 ## Prompting the user if they wish to save their changes
                                 while not save_add:
-                                    save_add = input("\nDo you wish to update your changes to the " + selected_database + " database? Y/N: ")
+                                    save_add = input("\nDo you wish to update your changes to both databases? Y/N: ")
                                     if save_add.lower() == "y":
+                                        ## Calling the commitChanges method in the database class to commit changes to both DBs
                                         database.commitChanges()
                                         save_add = True
                                         editing = False

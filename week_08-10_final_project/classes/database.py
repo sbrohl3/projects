@@ -43,24 +43,27 @@ class Database(Validator):
         """A class that commits all update changes to the database"""
         
         ## User is prompted that changes are being committed
-        print("Committing changes to the database...")
-        db_connection.executeQuery("COMMIT")
+        print("Committing changes to the CRM and Mailings database...")
+        db_connection.executeQuery("COMMIT;")
 
     def displayInput(self):
         """A class that displays compiled user input before committing to the database"""
 
         ## Before changes are committed the user can see all changes made
-        print("\nCurrent Record:\n===============\nName: " + self.first_name.title() + " " + self.last_name.title() + "\nCompany Name: " + self.company_name.title() + "\nAddress: " + self.address.title() + "\nCity: " + self.city.title() + "\nState: " + self.state_code.upper() + "\nZip Code: " + str(self.zip_code) + "\nPrimary Phone: " + self.phone_number  + "\nSecondary Phone: " + self.phone_number_2 + "\nEmail: " + self.email_address)
+        print("\nCurrent Record:\n===============\nName: " + self.first_name.title() + " " + self.last_name.title() + "\nCompany: " + self.company_name.title() + "\nAddress: " + self.address.title() + "\nCity: " + self.city.title() + "\nState: " + self.state_code.upper() + "\nZip Code: " + str(self.zip_code) + "\nPrimary Phone: " + self.phone_number  + "\nSecondary Phone: " + self.phone_number_2 + "\nEmail: " + self.email_address)
         
     def editRecord(self, record, selected_database):
         """A method for editing a record in a chosen database"""
 
+        ## Initiating a "False" flag to prevent errors in case the database is empty
+        invalid_record = False
         ## A query selecting all records from the database table
         if selected_database == "CRM":
             my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database + "; ")
+            ## A loop to select the row that matches the provided record 
             for row in my_query_result:
                 if record == row.crm_id:
-                    print("\n" + str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Company: " + str(row.company) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address))
+                    print("\n" + str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Company: " + str(row.company) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address))
                     return False
 
                 else:
@@ -69,10 +72,15 @@ class Database(Validator):
             if invalid_record == True:
                 print("\nA record matching that number does not exist. Please try again.")
                 return True
-
+            
+            ## If the database is empty an error will return that the given record is invalid and to check the database
+            else:
+                print("\nThe record number you provided does not exist. Please check that the database is not empty and try again!")
+                return True
 
         elif selected_database == "Mailings":
             my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database + "; ")
+            ## A loop to select the row that matches the provided record 
             for row in my_query_result:
                 if record == row.mail_id:
                     print("\n" + str(row.mail_id) + ". Name: " + str(row.name) + " | Company: " + str(row.company) + " | Address: " + str(row.address))
@@ -83,6 +91,11 @@ class Database(Validator):
 
             if invalid_record == True:
                 print("\nA record matching that number does not exist. Please try again.")
+                return True
+
+            ## If the database is empty an error will return that the given record is invalid and to check the database
+            else:
+                print("\nThe record number you provided does not exist. Please check that the database is not empty and try again!")
                 return True
 
     def importFile(self):
@@ -124,12 +137,13 @@ class Database(Validator):
             json.dump(rows, convert)
 
         ## Deleting all data currently in database before importing new file
-        db_connection.executeQuery("DELETE FROM CRM; DELETE FROM Mailings; COMMIT")  
+        db_connection.executeQuery("DELETE FROM CRM;DBCC CHECKIDENT ('CRM', RESEED, 0)  DELETE FROM Mailings; DBCC CHECKIDENT ('Mailings', RESEED, 0)  COMMIT")  
 
         ## Addings contents to the database
         with open("text_files/customers.json") as customers_json:
             customers = json.load(customers_json)
-                
+
+        ## A loop to add Json file contents to the database         
         print("Writing imported file to database please wait...")
         for key in customers:
             self.first_name = str(key["first_name"])
@@ -147,7 +161,7 @@ class Database(Validator):
             db_connection.executeQuery("INSERT INTO dbo.CRM (f_name, l_name, company, address, city, county, state, zip, primary_phone, secondary_phone, email_address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + "', '" + self.last_name.replace("\'", "\'\'").title() + "', '" + str(self.crm_company_name.replace("\'", "\'\'")) + "', '" + self.address + "', '" + self.city.replace("\'", "\'\'") + "', '" + self.county.replace("\'", "\'\'") + "', '" + self.state_code.upper() + "', '" + str(self.zip_code) + "', '" + self.phone_number + "', '" + str(self.phone_number_2) + "' , '" + self.email_address + "'); COMMIT")
             db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + " " + self.last_name.replace("\'", "\'\'").title() + "', '" + self.company_name.replace("\'", "\'\'") + "','" + self.address + " " + self.city + " " + self.county + " " + self.state_code + " " + self.zip_code + "'); COMMIT")        
 
-        print("Finished writing to file. Returning to main menu...")
+        print("\nFinished writing to file. Returning to main menu...")
 
 
     def removeRecord(self, record, selected_database):
@@ -162,16 +176,10 @@ class Database(Validator):
                     confirmation = input("\nAre you sure you want to delete Record #" + str(record) + " from the database? Y/N: ")
                     if confirmation.lower() == "y":
                         ## Deleting the user's selection and committing the change to the database
-                        if selected_database == "CRM":
-                            db_id = "crm"
-
-                        else:
-                            db_id = "mail"
-                            
-                            
-                        db_connection.executeQuery("DELETE FROM dbo." + selected_database + " WHERE " + db_id + "_id='" + str(row[0]) + "'; COMMIT")
+                        db_connection.executeQuery("DELETE FROM dbo.CRM WHERE crm_id='" + str(row[0]) + "'; COMMIT")
+                        db_connection.executeQuery("DELETE FROM dbo.Mailings WHERE mail_id='" + str(row[0]) + "'; COMMIT")
                         ## The user is prompted with a message confirming deletion then they are returned to the main menu
-                        print("\nDeleting Record #: " + str(record) + " from the " + selected_database + " database and returning to the main menu...")
+                        print("\nDeleting Record #: " + str(record) + " from the CRM and Mailings database. \n\nNow returning to the main menu...")
                         return False
 
 
@@ -184,38 +192,167 @@ class Database(Validator):
                         ## This error is thrown if a user does not enter Yes or No for their deletion selection
                         print("Please enter Y or N to confirm your selection.")
                         confirm_delete = True
-    
+
+            else:
+                ## In case the program hits an error it will pass over the error message instead of halting the program
+               pass
+
     def showContents(self, db_choice):
         """A method for showing all of the contents of a chosen database"""
 
+        ## Query records from the selected database
         my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + db_choice)
 
         print("\nDisplaying contents of the " + db_choice + " database\n=============================================")
         
+        ## Contents are displayed based on chosen DB
         if db_choice == "CRM":
             for row in my_query_result:     
-                print(str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Company Name: " + str(row.company) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address) + "\n")
+                print(str(row.crm_id) + ". First Name: " + str(row.f_name) + " | Last Name: " + str(row.l_name) + " | Company: " + str(row.company) + " | Address: " + str(row.address) + " | City: " + str(row.city) + " | County: " + str(row.county) + " | State: " + str(row.state) + " | Zip: " + str(row.zip) + " | Primary Phone: " + str(row.primary_phone) + " | Secondary Phone: " + str(row.secondary_phone) + " | Email: " + str(row.email_address) + "\n")
 
         else:
             for row in my_query_result:     
                 print(str(row.mail_id) + ". Name: " + str(row.name) + " | Company: " + str(row.company) + " | Address: " + str(row.address) + "\n")
 
     def updateContents(self, record, option, selected_database, passed_value):
-        """A class for updating the contents of a book; does not commit changes until approved by the user with the commit class"""
+        """A class for updating the contents of both databases; does not commit changes until approved by the user with the commit class"""
 
         ## A query to select all contents from the selected database
         my_query_result = db_connection.executeSelectQuery("SELECT * FROM dbo." + selected_database)
         
+        ## If the selected databae is the CRM database, update all values to the CRM and concatenate selected values to update the Mailings DB
         if selected_database == "CRM":
             for row in my_query_result:
                 if record == row.crm_id:
                     ## Update selected row with new values; Does not commit changes!
-                    db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
-                    break
+                    if option == "f_name":
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.first_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating Mailings DB
+                        option = "name"
+                        concat_name = self.first_name + " " + row.l_name
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_name.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                    
+                    elif option == "l_name":
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.last_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating Mailings DB
+                        option = "name"
+                        concat_name = row.f_name + " " + self.last_name
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_name.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                   
+                    elif option == "address":
+                       ## Updating CRM DB
+                       db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.address.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                       
+                       ## Updating Mailings DB
+                       option = "address"
+                       concat_address = self.address.title() + " " + row.city + " " + row.county + " " + row.state + " " + str(row.zip)
+                       db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_address.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                   
+                    elif option == "city":
+                       ## Updating CRM DB
+                       db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.city.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                       
+                       ## Updating Mailings DB
+                       option = "address"
+                       concat_address = row.address + " " + self.city.title() + " " + row.county + " " + row.state + " " + str(row.zip)
+                       db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_address.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                   
+                    elif option == "county":
+                       ## Updating CRM DB
+                       db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.county.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                       
+                       ## Updating Mailings DB
+                       option = "address"
+                       concat_address = row.address + " " + row.county + " " + self.county + " " + row.state + " " + str(row.zip)
+                       db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_address.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                   
+                    elif option == "state":
+                       ## Updating CRM DB
+                       db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value.upper()) + "' WHERE crm_id='" + str(record) + "'")
+                       
+                       ## Updating Mailings DB
+                       option = "address"
+                       concat_address = row.address + " " + row.city + " " + row.county + " " + self.state_code.upper() + " " + str(row.zip)
+                       db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_address) + "' WHERE mail_id='" + str(record) + "'")          
+                   
+                    elif option == "zip":
+                        ## Updating CRM DB
+                       db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                       
+                       ## Updating Mailings DB
+                       option = "address"
+                       concat_address = row.address + " " + row.city + " " + row.county + " " + row.state + " " + str(self.zip_code)
+                       db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(concat_address.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")          
+                    
+                    elif option.lower() == "company":                                                
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.crm_company_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+
+                        ## Updating Mailings DB
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")
+
+                    elif option.lower() == "primary_phone":
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value) + "' WHERE crm_id='" + str(record) + "'")
+
+                    elif option.lower() == "secondary_phone":
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value) + "' WHERE crm_id='" + str(record) + "'")
+
+                    elif option.lower() == "email_address":
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(passed_value) + "' WHERE crm_id='" + str(record) + "'")
+
         
+        ## If the selected databae is the Mailings database concatenate selected values and update them to the DB, then add un-concatenated values to the CRM
         else:
             for row in my_query_result:
                 if record == row.mail_id:
                     ## Update selected row with new values; Does not commit changes!
-                    db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")
-                    break
+                    if option == "name":
+                        ## Updating Mailings DB
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'")) + "' WHERE mail_id='" + str(record) + "'")
+                    
+                        ## Updating CRM DB                    
+                        option = "f_name"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.first_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        option = "l_name"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.last_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+
+                    elif option.lower() == "company":
+                        ## Updating Mailings DB
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'").title()) + "' WHERE mail_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.crm_company_name.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+
+                    elif option == "address":
+                        ## Updating Mailings DB
+                        db_connection.executeQuery("UPDATE dbo.Mailings SET " + option +"='" + str(passed_value.replace("\'", "\'\'")) + "' WHERE mail_id='" + str(record) + "'")
+                    
+                        ## Updating CRM DB
+                        option = "address"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.address.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        option = "city"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.city.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        option = "county"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.county.replace("\'", "\'\'").title()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        option = "state"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.state_code.upper()) + "' WHERE crm_id='" + str(record) + "'")
+                        
+                        ## Updating CRM DB
+                        option = "zip"
+                        db_connection.executeQuery("UPDATE dbo.CRM SET " + option +"='" + str(self.zip_code) + "' WHERE crm_id='" + str(record) + "'")
+                        

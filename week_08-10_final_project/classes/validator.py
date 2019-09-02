@@ -1,3 +1,4 @@
+
 class Validator():
     """A class representing a validator"""
 
@@ -65,7 +66,7 @@ class Validator():
     def validate_companyName(self):
         """A method to validate a user's inputted company name"""
 
-        if self.company_name.rstrip() and self.company_name.rstrip() != "N/A":
+        if self.company_name.rstrip() and self.company_name.upper().rstrip() != "N/A":
             print("The inputted company name is: " + "\"" + self.company_name.title() + "\".")
             self.crm_company_name = self.company_name.title()
             return True
