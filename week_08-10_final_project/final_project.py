@@ -11,7 +11,7 @@ database = Database()
 ## Setting my program to run as True 
 program_run = True
 
-## A loop to run the enirety of my program
+## A loop to run the entirety of my program
 while program_run == True:
 
     ## Printing an option menu to screen
@@ -291,8 +291,7 @@ while program_run == True:
                                     making_changes = True
                                     field_option = "address"
                                     database.updateContents(record, field_option, db_choice, database.address)
-                                    
-                                
+                                          
                             elif field_choice.lower() == "city":
                                 city_check = False
                                 while not city_check: 
@@ -303,8 +302,7 @@ while program_run == True:
                                     making_changes = True
                                     field_option = "city"
                                     database.updateContents(record, field_option, db_choice, database.city)
-                                    
-                                    
+                                       
                             elif field_choice.lower() == "county":
                                 county_check = False
                                 while not county_check: 
@@ -325,7 +323,6 @@ while program_run == True:
                                     field_option = "state"
                                     database.updateContents(record, field_option, db_choice, database.state_code)
                                     
-
                             elif field_choice.lower() == "zip":
                                 zip_code_check = False
                                 while not zip_code_check: 
@@ -336,7 +333,6 @@ while program_run == True:
                                     field_option = "zip"
                                     database.updateContents(record, field_option, db_choice, database.zip_code)
                                     
-
                             elif field_choice.lower() == "primary phone":
                                 primary_phone_check = False
                                 while not primary_phone_check: 
@@ -369,7 +365,6 @@ while program_run == True:
                                     field_option = "email_address"
                                     database.updateContents(record, field_option, db_choice, database.email_address)
                                     
-
                             else:
                                 print("You have entered an incorrect value. Please try again.")
                                 making_changes = False
@@ -425,7 +420,6 @@ while program_run == True:
                                     city_check = database.validate_cityInfo(option, database.city)
                                     making_changes = True
                                     
-
                                 county_check = False
                                 while not county_check: 
                                     ## Validating and adding a new county
@@ -448,7 +442,6 @@ while program_run == True:
                                     zip_code_check = database.validate_zipCode()
                                     making_changes = True
                                     
-
                                 field_option = "address"
                                 making_changes = True
                                 concat_address = database.address.title() + " " + database.city.title() + " " + database.county.title() + " " + database.state_code.upper() + " " + str(database.zip_code)

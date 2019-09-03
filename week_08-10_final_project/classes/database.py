@@ -40,14 +40,14 @@ class Database(Validator):
         db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + " " + self.last_name.replace("\'", "\'\'").title() + "', '" + self.company_name.replace("\'", "\'\'").title() + "','" + self.address + " " + self.city.title() + " " + self.county.title() + " " + self.state_code.upper() + " " + str(self.zip_code) + "'); COMMIT")        
 
     def commitChanges(self):
-        """A class that commits all update changes to the database"""
+        """A method that commits all update changes to the database"""
         
         ## User is prompted that changes are being committed
         print("Committing changes to the CRM and Mailings database...")
         db_connection.executeQuery("COMMIT;")
 
     def displayInput(self):
-        """A class that displays compiled user input before committing to the database"""
+        """A method that displays compiled user input before committing to the database"""
 
         ## Before changes are committed the user can see all changes made
         print("\nCurrent Record:\n===============\nName: " + self.first_name.title() + " " + self.last_name.title() + "\nCompany: " + self.company_name.title() + "\nAddress: " + self.address.title() + "\nCity: " + self.city.title() + "\nState: " + self.state_code.upper() + "\nZip Code: " + str(self.zip_code) + "\nPrimary Phone: " + self.phone_number  + "\nSecondary Phone: " + self.phone_number_2 + "\nEmail: " + self.email_address)
@@ -129,8 +129,8 @@ class Database(Validator):
         ## Opening the cleaned CSV file for conversion to Json
         with open('text_files/customers.csv') as clean_csv:
             ## Converting CSV file to Json
-            convert = csv.DictReader(clean_csv)
-            rows = list(convert)
+            converted = csv.DictReader(clean_csv)
+            rows = list(converted)
 
         ## Writing converted CSV to Json file
         with open('text_files/customers.json', 'w') as convert:
@@ -139,30 +139,17 @@ class Database(Validator):
         ## Deleting all data currently in database before importing new file
         db_connection.executeQuery("DELETE FROM CRM;DBCC CHECKIDENT ('CRM', RESEED, 0)  DELETE FROM Mailings; DBCC CHECKIDENT ('Mailings', RESEED, 0)  COMMIT")  
 
-        ## Addings contents to the database
+        ## Loading the newly created Json file
         with open("text_files/customers.json") as customers_json:
             customers = json.load(customers_json)
 
-        ## A loop to add Json file contents to the database         
+        ## A loop to add the contents of the Json file to the database         
         print("Writing imported file to database please wait...")
         for key in customers:
-            self.first_name = str(key["first_name"])
-            self.last_name = str(key["last_name"])
-            self.crm_company_name = str(key["company_name"])
-            self.company_name = str(key["company_name"])
-            self.address = str(key["address"])
-            self.city = str(key["city"])
-            self.county = str(key["county"])
-            self.state_code = str(key["state"])
-            self.zip_code = str(key["zip"])
-            self.phone_number = str(key["phone1"])
-            self.phone_number_2 = str(key["phone2"])
-            self.email_address = str(key["email"])
-            db_connection.executeQuery("INSERT INTO dbo.CRM (f_name, l_name, company, address, city, county, state, zip, primary_phone, secondary_phone, email_address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + "', '" + self.last_name.replace("\'", "\'\'").title() + "', '" + str(self.crm_company_name.replace("\'", "\'\'")) + "', '" + self.address + "', '" + self.city.replace("\'", "\'\'") + "', '" + self.county.replace("\'", "\'\'") + "', '" + self.state_code.upper() + "', '" + str(self.zip_code) + "', '" + self.phone_number + "', '" + str(self.phone_number_2) + "' , '" + self.email_address + "'); COMMIT")
-            db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + self.first_name.replace("\'", "\'\'").title() + " " + self.last_name.replace("\'", "\'\'").title() + "', '" + self.company_name.replace("\'", "\'\'") + "','" + self.address + " " + self.city + " " + self.county + " " + self.state_code + " " + self.zip_code + "'); COMMIT")        
+            db_connection.executeQuery("INSERT INTO dbo.CRM (f_name, l_name, company, address, city, county, state, zip, primary_phone, secondary_phone, email_address) VALUES ('" + key["first_name"].replace("\'", "\'\'") + "', '" + key["last_name"].replace("\'", "\'\'") + "', '" + key["company_name"].replace("\'", "\'\'") + "', '" + key["address"] + "', '" + key["city"].replace("\'", "\'\'") + "', '" + key["county"].replace("\'", "\'\'") + "', '" + key["state"] + "', '" + str(key["zip"]) + "', '" + key["phone1"] + "', '" + key["phone2"] + "' , '" + key["email"] + "'); COMMIT")
+            db_connection.executeQuery("INSERT INTO dbo.Mailings (name, company, address) VALUES ('" + key["first_name"].replace("\'", "\'\'") + " " + key["last_name"].replace("\'", "\'\'") + "', '" + key["company_name"].replace("\'", "\'\'") + "','" + key["address"] + " " + key["city"] + " " + key["county"] + " " + key["state"] + " " + str(key["zip"]) + "'); COMMIT")        
 
         print("\nFinished writing to file. Returning to main menu...")
-
 
     def removeRecord(self, record, selected_database):
         """A method for removing a record from all databases"""
