@@ -9,28 +9,33 @@ class Flower():
 
         ''' A constructor to initialize all of the variables used in the flower class '''
 
-        self.replies = ["", " me not."]
+        self.luv_me_not = ["She loves me", "She loves me not"]
 
 
 
-    def flowerPetal(self, startText):
+    def flowerPetal(self, petals):
 
         ''' A method representing a flower petal '''
 
-        ans = random.choice(self.replies)
-        startText = startText + ans
+        ans = random.choice(self.luv_me_not)
+        out = ans
+        
+        if petals == 1 and out == "She loves me not":
+            print(out + " :'(")
 
-        print(startText) 
+        elif petals == 1 and out == "She loves me":
+            print(out + "!! <3 :)") 
 
-
-
+        else:
+            print(out) 
 
 f = Flower()
 
-startText = "She loves me"
-start = input(startText)
+petals = 12
 
-while start != "q":
-    start = input(startText)
-    f.flowerPetal(startText)
-    
+InitInt = input("Press enter to start: \n")
+
+while petals  > 0:
+    f.flowerPetal(petals)
+    cont = input("\n")
+    petals -= 1
