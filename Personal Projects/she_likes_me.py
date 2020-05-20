@@ -9,7 +9,7 @@ class Flower():
 
         ''' A constructor to initialize all of the variables used in the flower class '''
 
-        self.luv_me_not = ["She loves me", "She loves me not"]
+        self.likes_me_not = ["She likes me", "She likes me not"]
 
 
 
@@ -17,13 +17,13 @@ class Flower():
 
         ''' A method representing a flower petal '''
 
-        ans = random.choice(self.luv_me_not)
+        ans = random.choice(self.likes_me_not)
         out = ans
         
-        if petals == 1 and out == "She loves me not":
+        if petals == 1 and out == "She likes me not":
             print(out + " :'(")
 
-        elif petals == 1 and out == "She loves me":
+        elif petals == 1 and out == "She likes me":
             print(out + "!! <3 :)") 
 
         else:
