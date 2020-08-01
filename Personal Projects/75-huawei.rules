@@ -1,0 +1,1 @@
+KERNEL=="ttyUSB0", SUBSYSTEM=="tty", ACTION=="add", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1506", RUN+="/usr/bin/net_up.sh"

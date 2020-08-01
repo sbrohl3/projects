@@ -1,0 +1,9 @@
+[Unit]
+Desciption= Huawei LTE Dongle startup script
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/net_up.sh
+
+[Install]
+WantedBy=multi-user.target
