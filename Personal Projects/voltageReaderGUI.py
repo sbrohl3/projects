@@ -9,7 +9,7 @@ NOTE: You must install the python library, nidaqmx to use this program. --> pyth
       
       Install this software package in Windows as well for proper device drivers: https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html#348669
 
-Created 11/28/2020 - CM-PJ/IVS1 BROHL, STEVEN
+Created 11/28/2020
 '''
 
 def readValue():
