@@ -35,7 +35,7 @@ while query_input:
         query_input = True
 
 
-#queries =["in-vehicle-sensing", "autonomous", "AI", "Artifical Intelligence", "occupant monitoring", "general motors", "GM", "ford motor company", "ford", "waymo", "uber", "lyft", "car sharing", "ride hailing ride sharing", "yandex", "ola", "didi", "maven", "sharenow"] 
+#queries =[""] 
 done = False
 
 integer = False
