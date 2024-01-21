@@ -9,7 +9,7 @@ page = 1
 retry = 0
 
 ## To be imported from file in final product
-api_keys = ["599f63190ef34538a1bd12b6ee12739d", "6716aa5c8e2544e69c2e1b7fe1f8c194", "d1d13f1e4d8942d89cd592e16aac6d68"]
+api_keys = [""]
 
 
 newsapi = NewsApiClient(api_key=api_keys[0])
